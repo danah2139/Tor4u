@@ -1,0 +1,27 @@
+{
+  "name": "tor4u",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "npm run start --prefix server",
+    "client": "npm run start --prefix client",
+    "start": "npm run server",
+    "dev": "concurrently \"npm run server-dev\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix server && npm install --prefix client && npm run build --prefix client "
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danah2139/Tor4u.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danah2139/Tor4u/issues"
+  },
+  "homepage": "https://github.com/danah2139/Tor4u#readme",
+  "dependencies": {
+    "concurrently": "^6.0.2"
+  }
+}
