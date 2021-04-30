@@ -25,6 +25,10 @@
   "homepage": "https://github.com/danah2139/Tor4u#readme",
   "dependencies": {
     "concurrently": "^6.0.2",
-    "cors": "^2.8.5"
-  }
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.7"
+  },
+  "proxy": "localhost:9876"
 }
