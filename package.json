@@ -5,10 +5,13 @@
   "main": "index.js",
   "scripts": {
     "server": "npm run start --prefix server",
+    "server-dev": "npm run dev --prefix server",
     "client": "npm run start --prefix client",
     "start": "npm run server",
     "dev": "concurrently \"npm run server-dev\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix server && npm install --prefix client && npm run build --prefix client "
+    "git-upload": "git add -A && git commit -m $npm_config_comment && git push origin $npm_config_branch",
+    "move-build": "mv client/build server/build",
+    "build-client": "npm run build --prefix client && npm run move-build"
   },
   "repository": {
     "type": "git",
@@ -21,6 +24,7 @@
   },
   "homepage": "https://github.com/danah2139/Tor4u#readme",
   "dependencies": {
-    "concurrently": "^6.0.2"
+    "concurrently": "^6.0.2",
+    "cors": "^2.8.5"
   }
 }
