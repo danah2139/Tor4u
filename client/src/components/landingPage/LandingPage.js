@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { StyledContainer } from "./landingPage.style";
+import { StyledContainer } from "./landingPageStyle";
 import Button from "../utils/Button";
 //import { testConnection } from "../../apis/usersApi";
 
@@ -19,7 +19,7 @@ const LandingPage = (props) => {
   return (
     <StyledContainer className="flex-column">
       <h1>Welcome To Tor4U</h1>
-      <p>?</p>
+      <p>What do you want to do?</p>
       <StyledContainer>
         <Button label="Get Service" value="Receiever" onClick={routeChange} />
         <Button
