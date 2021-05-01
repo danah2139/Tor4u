@@ -33,6 +33,14 @@ const Provider = mongoose.model(Provider, {
     address: { type: String },
     city: { type: String },
     region: { type: String },
+    tokens: [
+      {
+        token: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
     //serviceBooked: [ ],
   },
 });
