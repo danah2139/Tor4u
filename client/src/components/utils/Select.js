@@ -11,8 +11,12 @@ const Select = ({
   return (
     <StyledContainer>
       <StyledLabel htmlFor={name}>{label}</StyledLabel>
-      <select name={name} onChange={onChange} value={value}>
+      <select name={name} onChange={onChange}>
         <option>Choose Category</option>
+        <option value="manicure">Manicure</option>
+        <option value="plumbing">Plumbing</option>
+        <option value="hairDesign">Hair Design</option>
+        <option value="makeup">Makeup</option>
       </select>
     </StyledContainer>
   );

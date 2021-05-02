@@ -14,6 +14,7 @@ const ProviderSignUpForm = ({ userType }) => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
+  const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
 
   const handleSubmit = async (e) => {
@@ -70,7 +71,12 @@ const ProviderSignUpForm = ({ userType }) => {
         }}
         value={password}
       />
-      <Select label="Category:" />
+      <Select
+        label="Category:"
+        onChange={(e) => {
+          setCategory(e.target.value);
+        }}
+      />
       <Input
         required
         label="Price:"

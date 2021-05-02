@@ -4,7 +4,11 @@ export const StyledForm = styled.form`
   flex-direction: column;
   justify-content: space-between;
   margin: 10px auto;
-  padding: 15px;
+  padding: 10px 15px;
   background: white;
   border-radius: 15px;
+  h3 {
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+  }
 `;
