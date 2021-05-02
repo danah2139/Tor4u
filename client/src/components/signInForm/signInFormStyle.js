@@ -3,7 +3,7 @@ export const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 10px auto;
+  margin: 0 auto;
   padding: 10px 15px;
   background: white;
   border-radius: 15px;

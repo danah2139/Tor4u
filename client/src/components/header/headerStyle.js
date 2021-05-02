@@ -34,6 +34,8 @@ export const StyledLink = styled(Link)`
   padding: 5px;
   border: 1px solid transparent;
   &:hover {
-    color: ${({ theme }) => theme.lightBlue};
+    // color: ${({ theme }) => theme.lightBlue};
+    border: 2px solid;
+    border-radius: 3px;
   }
 `;
