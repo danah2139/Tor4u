@@ -87,7 +87,7 @@ const ProviderSignUpForm = ({ userType }) => {
         value={price}
       />
 
-      <Button type="submit" label="Sign Up" />
+      <Button type="submit" label="Sign Up" value="SIGN UP" />
     </StyledForm>
   );
 };

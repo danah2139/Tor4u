@@ -3,7 +3,6 @@ const Select = ({
   label,
   name,
   onChange,
-  value,
   required,
   type = "text",
   autoFocus,

@@ -39,7 +39,8 @@ const SignInForm = ({ userType }) => {
           value={password}
         />
       </div>
-      <Button type="submit" label="Sign In" />
+
+      <Button type="submit" label="Sign In" value="SIGN IN" />
     </StyledForm>
   );
 };

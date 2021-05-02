@@ -69,7 +69,7 @@ const ReceiverSignUpForm = ({ userType }) => {
         value={password}
       />
 
-      <Button type="submit" label="Sign Up" />
+      <Button type="submit" label="Sign Up" value="SIGN UP" />
     </StyledForm>
   );
 };

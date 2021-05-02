@@ -15,9 +15,12 @@ export const StyledContainer = styled.div`
 export const StyledButton = styled.button`
   background: ${({ theme }) => theme.darkBlue};
   color: white;
+  display: flex;
   font-size: 1em;
+  min-width: 120px;
+  justify-content: space-between;
   margin-right: 10px;
-  padding: 0.5em 1em;
+  padding: 0.6em 0.5em;
   border: 2px solid ${({ theme }) => theme.darkBlue};
   border-radius: 5px;
   &:hover {
