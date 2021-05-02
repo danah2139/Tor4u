@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const StyledContainer = styled.div`
   display: flex;
-  margin: auto;
+  justify-content: center;
+
   &.flex-column {
     flex-direction: column;
   }

@@ -1,16 +1,16 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/user");
+const Provider = require("../models/provider");
 
 const auth = async (req, res, next) => {
   try {
     const token = req.header("Authorization").replace("Bearer ", "");
     const decoded = jwt.verify(token, "thisismynewcourse");
-    const user = await User.findOne({
+    const provider = await Provider.findOne({
       _id: decoded._id,
       "tokens.token": token,
     });
 
-    if (!user) {
+    if (!provider) {
       throw new Error();
     }
 

@@ -13,7 +13,7 @@ const LandingPage = (props) => {
   };
 
   useEffect(() => {
-    testConnection();
+    // testConnection();
   }, []);
 
   return (

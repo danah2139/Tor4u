@@ -1,30 +1,10 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const StyledText = styled.p`
-  color: white;
-  font-size: 1.1rem;
-`;
-
 export const StyledContainer = styled.div`
   display: flex;
-  align-items: flex-end;
-  flex-direction: column;
-`;
-
-export const StyledHeader = styled.header`
-  background: white;
-  border-radius: 15px;
-  display: flex;
-  align-items: flex-start;
   justify-content: space-between;
-  padding: 10px 10px;
-`;
-
-export const StyledH1 = styled.h1`
-  color: ${({ theme }) => theme.darkBlue};
-  letter-spacing: 0.5rem;
-  margin: 0;
+  // align-items: center;
 `;
 
 export const StyledLink = styled(Link)`
