@@ -7,6 +7,10 @@ export const StyledLabel = styled.label`
   margin-bottom: 5px;
 `;
 
+export const StyledSelect = styled.select`
+  overflow: scroll;
+`;
+
 export const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;

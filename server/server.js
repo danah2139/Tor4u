@@ -3,7 +3,16 @@ require("./db/mongoose");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const receiverRouter = require("./routers/receiverRouter");
+const providerRouter = require("./routers/providerRouter");
+const serviceBookedRouter = require("./routers/serviceBookedRouter");
+
 const app = express();
+
+// API calls
+app.use("/api", receiverRouter);
+app.use("/api", providerRouter);
+app.use("/api", serviceBookedRouter);
 
 const publicDirectory = path.join(__dirname, "client/build");
 app.use(express.static(publicDirectory));

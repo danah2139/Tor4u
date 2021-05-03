@@ -16,6 +16,7 @@ const ProviderSignUpForm = ({ userType }) => {
   const [address, setAddress] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
+  const [detailService, setDetailService] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,8 +72,9 @@ const ProviderSignUpForm = ({ userType }) => {
         }}
         value={password}
       />
-      <Select
+      {/* <Select
         label="Category:"
+        name="category"
         onChange={(e) => {
           setCategory(e.target.value);
         }}
@@ -86,6 +88,14 @@ const ProviderSignUpForm = ({ userType }) => {
         }}
         value={price}
       />
+
+      <button
+        onClick={() => {
+          setDetailService([...detailService, { category, price }]);
+        }}
+      >
+        Add
+      </button> */}
 
       <Button type="submit" label="Sign Up" value="SIGN UP" />
     </StyledForm>

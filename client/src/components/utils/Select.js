@@ -1,4 +1,4 @@
-import { StyledContainer, StyledLabel } from "./utilsStyle";
+import { StyledContainer, StyledLabel, StyledSelect } from "./utilsStyle";
 const Select = ({
   label,
   name,
@@ -10,13 +10,14 @@ const Select = ({
   return (
     <StyledContainer>
       <StyledLabel htmlFor={name}>{label}</StyledLabel>
-      <select name={name} onChange={onChange}>
+      <StyledSelect name={name} onChange={onChange}>
         <option>Choose Category</option>
         <option value="manicure">Manicure</option>
         <option value="plumbing">Plumbing</option>
         <option value="hairDesign">Hair Design</option>
         <option value="makeup">Makeup</option>
-      </select>
+        <option value="cleaningServices">Cleaning Services</option>
+      </StyledSelect>
     </StyledContainer>
   );
 };

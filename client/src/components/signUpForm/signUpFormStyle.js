@@ -13,3 +13,5 @@ export const StyledForm = styled.form`
     margin-block-end: 0.5em;
   }
 `;
+
+export const StyledButton = styled.button``;
