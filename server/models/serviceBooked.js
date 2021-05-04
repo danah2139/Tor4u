@@ -10,6 +10,7 @@ const ServiceBooked = mongoose.model("ServiceBooked", {
   },
   date: {
     type: Date,
+    required: true,
   },
   provider: {
     type: mongoose.Schema.Types.ObjectId,

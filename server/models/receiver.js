@@ -17,39 +17,39 @@ const receiverSchema = new mongoose.Schema({
         throw Error("email not valid!");
       }
     },
-    password: {
-      type: String,
-      required: true,
-      minlength: 7,
-      trim: true,
-      validate(value) {
-        if (value.toLowerCase().includes("password")) {
-          throw new Error('Password cannot contain "password"');
-        }
-      },
-    },
-    phone: {
-      type: String,
-      required: true,
-      validate(value) {
-        if (!validator.isMobilePhone(value, ["he-IL"])) {
-          throw new Error("phone number most be a valid isrealy phone number");
-        }
-      },
-    },
-    address: { type: String },
-    city: { type: String },
-    region: { type: String },
-    // service_booked: {},
-    tokens: [
-      {
-        token: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
   },
+  password: {
+    type: String,
+    required: true,
+    minlength: 7,
+    trim: true,
+    validate(value) {
+      if (value.toLowerCase().includes("password")) {
+        throw new Error('Password cannot contain "password"');
+      }
+    },
+  },
+  phone: {
+    type: String,
+    required: true,
+    validate(value) {
+      if (!validator.isMobilePhone(value, ["he-IL"])) {
+        throw new Error("phone number most be a valid isrealy phone number");
+      }
+    },
+  },
+  address: { type: String },
+  city: { type: String },
+  region: { type: String },
+  // service_booked: {},
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 receiverSchema.virtual("booksServices", {
   ref: "ServiceBooked",
@@ -69,7 +69,10 @@ receiverSchema.methods.toJSON = function () {
 
 receiverSchema.methods.generateAuthToken = async function () {
   const receiver = this;
-  const token = jwt.sign({ _id: receiver._id.toString() }, "thisismynewcourse");
+  const token = jwt.sign(
+    { _id: receiver._id.toString() },
+    process.env.JWT_SECRET
+  );
 
   receiver.tokens = receiver.tokens.concat({ token });
   await receiver.save();
@@ -107,10 +110,10 @@ receiverSchema.pre("save", async function (next) {
 // Delete receiver tasks when receiver is removed
 receiverSchema.pre("remove", async function (next) {
   const receiver = this;
-  await ServiceBooked.deleteMany({ owner: receiver._id });
+  await ServiceBooked.deleteMany({ receiver: receiver._id });
   next();
 });
 
-const Reciever = mongoose.model("Reciever", receiverSchema);
+const Receiver = mongoose.model("Receiver", receiverSchema);
 
-module.exports = Reciever;
+module.exports = Receiver;

@@ -77,7 +77,10 @@ providerSchema.methods.toJSON = function () {
 
 providerSchema.methods.generateAuthToken = async function () {
   const provider = this;
-  const token = jwt.sign({ _id: provider._id.toString() }, "thisismynewcourse");
+  const token = jwt.sign(
+    { _id: provider._id.toString() },
+    process.env.JWT_SECRET
+  );
 
   provider.tokens = provider.tokens.concat({ token });
   await provider.save();

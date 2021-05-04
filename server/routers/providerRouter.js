@@ -5,6 +5,7 @@ const router = new express.Router();
 
 router.post("/providers", async (req, res) => {
   const provider = new Provider(req.body);
+  console.log(req.body);
 
   try {
     await provider.save();

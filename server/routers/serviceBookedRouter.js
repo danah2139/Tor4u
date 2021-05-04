@@ -7,8 +7,9 @@ const router = new express.Router();
 router.post("/servicesBooked", auth, async (req, res) => {
   const serviceBooked = new ServiceBooked({
     ...req.body,
-    reciecver: req.reciever._id,
+    receiver: req.receiver._id,
   });
+  console.log(serviceBooked);
 
   try {
     await serviceBooked.save();
