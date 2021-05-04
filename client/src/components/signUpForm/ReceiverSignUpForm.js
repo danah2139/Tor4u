@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-// import { createNewUser } from "../../apis/usersApi";
-// import { getLoggedInUserToken } from "../../apis/auth";
+import { createNewUser } from "../../apis/usersApi";
 import { StyledForm } from "./signUpFormStyle";
 import Button from "../utils/Button";
 import Input from "../utils/Input";
@@ -16,7 +15,10 @@ const ReceiverSignUpForm = ({ userType }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // await createNewUser({ name, email, userId, password });
+    await createNewUser(
+      { name, email, phone, password, address },
+      userType.toLowerCase()
+    );
     history.push(`/${userType}/dashboard`);
   };
 

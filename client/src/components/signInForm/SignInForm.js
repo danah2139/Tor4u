@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { logIn } from "../../apis/usersApi";
+import { logIn } from "../../apis/usersApi";
 import { StyledForm } from "./signInFormStyle";
 import Button from "../utils/Button";
 import Input from "../utils/Input";
@@ -12,7 +12,7 @@ const SignInForm = ({ userType }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // await logIn({ email, password });
+    await logIn({ email, password }, userType.toLowerCase());
     history.replace(`/${userType}/dashboard`);
   };
 

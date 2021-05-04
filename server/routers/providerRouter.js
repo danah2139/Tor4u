@@ -3,7 +3,7 @@ const Provider = require("../models/provider");
 const auth = require("../middleware/auth");
 const router = new express.Router();
 
-router.post("/providers", async (req, res) => {
+router.post("/providers/signup", async (req, res) => {
   const provider = new Provider(req.body);
   console.log(req.body);
 

@@ -7,7 +7,7 @@ import {
 } from "../../../apis/classroomsApi";
 import ClassroomCard from "./ClassroomCard";
 
-const RecieverDashboard = () => {
+const ReceiverDashboard = () => {
   const [classrooms, setClassrooms] = useState([]);
   const [warning, setWarning] = useState("");
   const [classId, setClassId] = useState("");
@@ -59,4 +59,4 @@ const RecieverDashboard = () => {
     </StyledContainer>
   );
 };
-export default RecieverDashboard;
+export default ReceiverDashboard;

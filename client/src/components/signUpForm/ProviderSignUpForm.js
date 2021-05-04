@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-// import { createNewUser } from "../../apis/usersApi";
-// import { getLoggedInUserToken } from "../../apis/auth";
+import { createNewUser } from "../../apis/usersApi";
 import { StyledForm } from "./signUpFormStyle";
 import Button from "../utils/Button";
 import Input from "../utils/Input";
@@ -9,18 +8,21 @@ import Select from "../utils/Select";
 
 const ProviderSignUpForm = ({ userType }) => {
   const history = useHistory();
-  const [name, setName] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
-  const [detailService, setDetailService] = useState([]);
+  // const [category, setCategory] = useState("");
+  // const [price, setPrice] = useState("");
+  // const [detailService, setDetailService] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // await createNewUser({ name, email, userId, password });
+    await createNewUser(
+      { companyName, email, phone, password, address },
+      userType.toLowerCase()
+    );
     history.push(`/${userType}/dashboard`);
   };
 
@@ -30,11 +32,11 @@ const ProviderSignUpForm = ({ userType }) => {
       <Input
         required
         label="Company Name:"
-        name="name"
+        name="companyName"
         onChange={(e) => {
-          setName(e.target.value);
+          setCompanyName(e.target.value);
         }}
-        value={name}
+        value={companyName}
       />
       <Input
         required

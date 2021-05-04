@@ -3,7 +3,7 @@ const Receiver = require("../models/receiver");
 const auth = require("../middleware/auth");
 const router = new express.Router();
 
-router.post("/receivers", async (req, res) => {
+router.post("/receivers/signup", async (req, res) => {
   const receiver = new Receiver(req.body);
 
   try {

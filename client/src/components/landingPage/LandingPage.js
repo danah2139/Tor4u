@@ -21,7 +21,7 @@ const LandingPage = (props) => {
       <h1>Welcome To Tor4U</h1>
       <p>What do you want to do?</p>
       <StyledContainer>
-        <Button label="Get Service" value="Receiever" onClick={routeChange} />
+        <Button label="Get Service" value="Receiver" onClick={routeChange} />
         <Button
           label="Provide Service"
           value="Provider"
