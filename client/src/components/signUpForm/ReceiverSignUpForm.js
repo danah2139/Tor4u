@@ -5,7 +5,7 @@ import { StyledForm } from "./signUpFormStyle";
 import Button from "../utils/Button";
 import Input from "../utils/Input";
 
-const ReceiverSignUpForm = ({ userType }) => {
+const ReceiverSignUpForm = () => {
   const history = useHistory();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -15,11 +15,8 @@ const ReceiverSignUpForm = ({ userType }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await createNewUser(
-      { name, email, phone, password, address },
-      userType.toLowerCase()
-    );
-    history.push(`/${userType}/dashboard`);
+    await createNewUser({ name, email, phone, password, address }, "receiver");
+    history.push(`/dashboard`);
   };
 
   return (

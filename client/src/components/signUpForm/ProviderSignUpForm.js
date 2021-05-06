@@ -6,7 +6,7 @@ import Button from "../utils/Button";
 import Input from "../utils/Input";
 import Select from "../utils/Select";
 
-const ProviderSignUpForm = ({ userType }) => {
+const ProviderSignUpForm = () => {
   const history = useHistory();
   const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,9 +21,9 @@ const ProviderSignUpForm = ({ userType }) => {
     e.preventDefault();
     await createNewUser(
       { companyName, email, phone, password, address },
-      userType.toLowerCase()
+      "provider"
     );
-    history.push(`/${userType}/dashboard`);
+    history.push(`/dashboard`);
   };
 
   return (

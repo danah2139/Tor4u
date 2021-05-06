@@ -1,5 +1,10 @@
 import axios from "axios";
-import { setUserToken, getLoggedInUserToken, removeUserToken } from "./auth";
+import {
+  setUserToken,
+  getLoggedInUserToken,
+  removeUserToken,
+  removeUserType,
+} from "./auth";
 
 export const createNewUser = async (user, type) => {
   try {
@@ -7,8 +12,8 @@ export const createNewUser = async (user, type) => {
       `http://localhost:5000/api/${type}s/signup`,
       user
     );
-    setUserToken(res.data.token);
-    console.log(res);
+    setUserToken(res.data.token, type);
+    // console.log(res.data[type]._id);
     return res.data[type]._id;
   } catch (e) {
     console.log(e.response);
@@ -17,20 +22,25 @@ export const createNewUser = async (user, type) => {
 
 export const logIn = async (user, type) => {
   try {
-    const res = await axios.post(`/api/${type}s/login`, user);
+    // console.log(user);
+    const res = await axios.post(
+      `http://localhost:5000/api/${type}s/login`,
+      user
+    );
+    // console.log("login", res);
     return setUserToken(res.data.token);
   } catch (e) {
     console.log(e.response);
   }
 };
 
-export const getAllusers = async (type) => {
+export const getAllUsers = async (type) => {
   try {
     const token = getLoggedInUserToken();
     if (!token) {
       return "please log in";
     }
-    const res = await axios.get(`/api/${type}s`, {
+    const res = await axios.get(`http://localhost:5000/api/${type}s`, {
       headers: {
         Authorization: token,
       },
@@ -55,11 +65,13 @@ export const getUser = async (type) => {
     if (!token) {
       return "please log in";
     }
-    const res = await axios.get(`/api/${type}s/me`, {
+    // console.log(type);
+    const res = await axios.get(`http://localhost:5000/api/${type}s/me`, {
       headers: {
         Authorization: token,
       },
     });
+    // console.log(res);
     return res.data;
   } catch (e) {
     console.log(e.response);
@@ -74,8 +86,9 @@ export const logout = async (type) => {
       return "please log in";
     }
     removeUserToken();
+    removeUserType();
 
-    const res = await axios.post(`/api/${type}s/logout`, {
+    const res = await axios.post(`http://localhost:5000/api/${type}s/logout`, {
       headers: {
         Authorization: token,
       },
@@ -95,7 +108,7 @@ export const updateUser = async (user, type) => {
       return "please log in";
     }
 
-    const res = await axios.patch(`/api/${type}s`, {
+    const res = await axios.patch(`http://localhost:5000/api/${type}s/me`, {
       ...user,
       headers: {
         Authorization: token,

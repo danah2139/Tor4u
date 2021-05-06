@@ -59,7 +59,7 @@ const providerSchema = new mongoose.Schema({
   //serviceBooked: [ ],
 });
 
-providerSchema.virtual("booksServices", {
+providerSchema.virtual("servicesBooked", {
   ref: "ServiceBooked",
   localField: "_id",
   foreignField: "provider",
@@ -89,7 +89,8 @@ providerSchema.methods.generateAuthToken = async function () {
 };
 
 providerSchema.statics.findByCredentials = async (email, password) => {
-  const provider = await provider.findOne({ email });
+  console.log("hi", email);
+  const provider = await Provider.findOne({ email });
 
   if (!provider) {
     throw new Error("Unable to login");

@@ -1,30 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyledLink, StyledContainer } from "./loginPageStyle";
 import SignInForm from "../signInForm/SignInForm";
 import ProviderSignUpForm from "../signUpForm/ProviderSignUpForm";
 import ReceiverSignUpForm from "../signUpForm/ReceiverSignUpForm";
+import { getUserType, setUserType } from "../../apis/auth";
 
 const LoginPage = (props) => {
-  const userType = props.userType;
-  const otherUserType = userType === "Provider" ? "Receiver" : "Provider";
+  const [userTypeSelected, setUserTypeSelected] = useState();
+  useEffect(() => {
+    setUserTypeSelected(getUserType());
+  }, []);
+
+  const otherUserType =
+    userTypeSelected === "provider" ? "receiver" : "provider";
+
+  const handleClick = async () => {
+    setUserTypeSelected(otherUserType);
+    await setUserType(userTypeSelected);
+  };
   return (
     <div>
-      <h1>Log in as a {userType}</h1>
+      <h1>Log in as a {userTypeSelected}</h1>
       <p>
         or change to{" "}
-        <StyledLink
-          to="/login"
-          onClick={() => props.setUserType(otherUserType)}
-        >
-          {otherUserType}
-        </StyledLink>
+        <StyledLink onClick={handleClick}>{otherUserType}</StyledLink>
       </p>
       <StyledContainer>
-        <SignInForm userType={userType} />
-        {userType === "Provider" ? (
-          <ProviderSignUpForm userType={userType} />
+        <SignInForm />
+        {userTypeSelected === "provider" ? (
+          <ProviderSignUpForm />
         ) : (
-          <ReceiverSignUpForm userType={userType} />
+          <ReceiverSignUpForm />
         )}
       </StyledContainer>
     </div>

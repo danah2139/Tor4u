@@ -7,7 +7,7 @@ export const StyledContainer = styled.div`
   // align-items: center;
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledLink = styled.button`
   color: ${({ theme }) => theme.darkBlue};
   text-decoration: none;
   font-family: "Montserrat", sans-serif;

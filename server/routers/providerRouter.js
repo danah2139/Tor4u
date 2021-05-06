@@ -22,10 +22,11 @@ router.post("/providers/login", async (req, res) => {
       req.body.email,
       req.body.password
     );
+    console.log("hi", provider);
     const token = await provider.generateAuthToken();
     res.send({ provider, token });
   } catch (e) {
-    res.status(400).send();
+    res.status(400).send(e.message);
   }
 });
 
@@ -62,6 +63,7 @@ router.get("/providers", auth, async (req, res) => {
 });
 
 router.get("/providers/me", auth, async (req, res) => {
+  console.log(req);
   res.send(req.provider);
 });
 

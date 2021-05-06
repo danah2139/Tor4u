@@ -51,7 +51,7 @@ const receiverSchema = new mongoose.Schema({
     },
   ],
 });
-receiverSchema.virtual("booksServices", {
+receiverSchema.virtual("servicesBooked", {
   ref: "ServiceBooked",
   localField: "_id",
   foreignField: "receiver",
@@ -81,7 +81,7 @@ receiverSchema.methods.generateAuthToken = async function () {
 };
 
 receiverSchema.statics.findByCredentials = async (email, password) => {
-  const receiver = await receiver.findOne({ email });
+  const receiver = await Receiver.findOne({ email });
 
   if (!receiver) {
     throw new Error("Unable to login");

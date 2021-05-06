@@ -1,16 +1,9 @@
 import { StyledContainer, StyledLabel, StyledSelect } from "./utilsStyle";
-const Select = ({
-  label,
-  name,
-  onChange,
-  required,
-  type = "text",
-  autoFocus,
-}) => {
+const Select = ({ label, onChange }) => {
   return (
     <StyledContainer>
-      <StyledLabel htmlFor={name}>{label}</StyledLabel>
-      <StyledSelect name={name} onChange={onChange}>
+      <StyledLabel>{label}</StyledLabel>
+      <StyledSelect onChange={(event) => onChange(event.target.value)}>
         <option>Choose Category</option>
         <option value="manicure">Manicure</option>
         <option value="plumbing">Plumbing</option>

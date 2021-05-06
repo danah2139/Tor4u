@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { StyledContainer } from "./landingPageStyle";
 import Button from "../utils/Button";
+import { setUserType } from "../../apis/auth";
 //import { testConnection } from "../../apis/usersApi";
 
 const LandingPage = (props) => {
   const history = useHistory();
 
   const routeChange = (e) => {
-    props.setUserType(e.target.value);
+    setUserType(e.target.value.toLowerCase());
     history.push("/login");
   };
 

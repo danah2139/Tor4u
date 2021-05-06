@@ -5,7 +5,7 @@ export const StyledContainer = styled.div`
   color: ${({ theme }) => theme.lightGray};
   justify-content: center;
   align-items: center;
-  border-radius: 15px;
+  // border-radius: 15px;
   padding: 10px 10px;
   background: #183153;
   & p {
