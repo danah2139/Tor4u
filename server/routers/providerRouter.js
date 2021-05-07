@@ -69,7 +69,7 @@ router.get("/providers/me", auth, async (req, res) => {
 
 router.patch("/providers/me", auth, async (req, res) => {
   const updates = Object.keys(req.body);
-  const allowedUpdates = ["companyName", "email", "password", "catagories"];
+  const allowedUpdates = ["companyName", "email", "password", "categories"];
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)
   );
@@ -79,13 +79,44 @@ router.patch("/providers/me", auth, async (req, res) => {
   }
 
   try {
-    updates.forEach((update) => (req.provider[update] = req.body[update]));
+    updates.forEach((update) => {
+      if (update === "categories") {
+        let categoryIndex = req.provider.categories.findIndex(
+          (category) => category.name === req.body.categories.name
+        );
+        if (categoryIndex !== -1) {
+          req.provider.categories[categoryIndex].price =
+            req.body.categories.price;
+        } else {
+          console.log("hi", req.body.categories);
+          req.provider.categories.push(req.body.categories);
+        }
+      } else {
+        req.provider[update] = req.body[update];
+      }
+    });
     await req.provider.save();
     res.send(req.provider);
   } catch (e) {
     res.status(400).send(e);
   }
 });
+
+// router.put("/providers/me/categories", auth, async (req, res) => {
+//   try {
+//     const {}= req.param
+//     const result = await Account.findByIdAndUpdate(id, {
+//      $push: {
+
+//   }, {
+//       new: true,
+//       runValidators: true
+//   });
+//     res.send(req.provider);
+//   } catch (e) {
+//     res.status(400).send(e);
+//   }
+// });
 
 router.delete("/providers/me", auth, async (req, res) => {
   try {

@@ -105,6 +105,10 @@ providerSchema.statics.findByCredentials = async (email, password) => {
   return provider;
 };
 
+// providerSchema.statics.pushCategories = async(name,price) =>{
+
+// }
+
 // Hash the plain text password before saving
 providerSchema.pre("save", async function (next) {
   const provider = this;
