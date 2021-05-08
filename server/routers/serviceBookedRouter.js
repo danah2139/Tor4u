@@ -28,6 +28,22 @@ router.get("/servicesBooked", auth, async (req, res) => {
   }
 });
 
+router.get("/servicesBooked/provider", auth, async (req, res) => {
+  try {
+    const servicesBooked = await ServiceBooked.findMany({
+      provider: req.body.id,
+    });
+
+    if (!serviceBooked) {
+      return res.status(404).send();
+    }
+
+    res.send(servicesBooked);
+  } catch (e) {
+    res.status(500).send();
+  }
+});
+
 router.get("/servicesBooked/:id", auth, async (req, res) => {
   const _id = req.params.id;
 

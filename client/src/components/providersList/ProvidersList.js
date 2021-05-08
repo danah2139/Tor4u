@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+
 import {
   StyledContainerColumn,
   StyledHeader,
@@ -9,29 +11,41 @@ import { getAllUsers } from "../../apis/usersApi";
 // import AddNewprovider from "./AddNewprovider";
 import Button from "../utils/Button";
 import Select from "../utils/Select";
-
 const ProvidersList = () => {
   const [showAddNew, setShowAddNew] = useState(true);
   const [providers, setProviders] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const history = useHistory();
   useEffect(() => {
     let didCancel = false;
     (async () => {
       const res = await getAllUsers("provider");
-
+      console.log("providres:".res);
       if (!didCancel) {
         setProviders(res);
       }
     })();
   }, []);
 
-  const bookedProvider = (e) => {};
+  const bookedProvider = (id) => {
+    history.push(`/calendar/${id}`);
+  };
 
   const renderItem = (provider) => {
     const tempArr = [];
     for (let key in provider) {
-      if (key !== "_id" && key !== "password") {
-        tempArr.push(<div>{provider[key]}</div>);
+      if (
+        key !== "_id" &&
+        key !== "password" &&
+        key !== "__v" &&
+        key !== "category"
+      ) {
+        tempArr.push(
+          <div>
+            <span>{key} : </span>
+            <span>{provider[key]}</span>
+          </div>
+        );
       }
     }
 
@@ -44,8 +58,11 @@ const ProvidersList = () => {
         .filter((provider) => provider.category === selectedCategory)
         .map((provider) => {
           return (
-            <StyledListItem key={provider._id} onClick={bookedProvider}>
-              {renderItem()}
+            <StyledListItem
+              key={provider._id}
+              onClick={() => bookedProvider(provider._id)}
+            >
+              {renderItem(provider)}
             </StyledListItem>
           );
         });

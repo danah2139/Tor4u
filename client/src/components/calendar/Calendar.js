@@ -4,8 +4,12 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { getUserType } from "../../apis/auth";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router";
+
 const Calendar = () => {
   const [userType, setUserType] = useState("");
+  const { id } = useParams();
+
   useEffect(() => {
     (async () => {
       const type = await getUserType();

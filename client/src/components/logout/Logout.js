@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { logout } from "../../apis/usersApi";
-
+import { getUserType } from "../../apis/auth";
 import Button from "../utils/Button";
 
 const Logout = () => {
   const history = useHistory();
 
   const logoutUser = async () => {
-    await logout();
+    let type = await getUserType();
+    await logout(type);
 
     history.push("/");
   };

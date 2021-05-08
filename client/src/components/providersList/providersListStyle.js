@@ -11,7 +11,7 @@ export const StyledWarning = styled.div`
 
 export const StyledContainerColumn = styled.div`
   border: 2px solid ${({ theme }) => theme.darkBlue};
-  width: 400px;
+  width: 700px;
   padding: 10px;
   margin: 20px;
   display: flex;

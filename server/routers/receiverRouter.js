@@ -35,7 +35,7 @@ router.post("/receivers/logout", auth, async (req, res) => {
     });
     await req.receiver.save();
 
-    res.send();
+    res.send("logged out");
   } catch (e) {
     res.status(500).send();
   }

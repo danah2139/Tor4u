@@ -15,7 +15,7 @@ const auth = async (req, res, next) => {
       "tokens.token": token,
     });
 
-    console.log("rec", decoded, receiver);
+    //console.log("rec", decoded, receiver);
 
     if (provider) {
       req.provider = provider;

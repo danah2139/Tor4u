@@ -40,6 +40,27 @@ export const getReceiverServiceBooked = async () => {
   }
 };
 
+export const getAllProviderServiceBooked = async (id) => {
+  // console.log(id);
+  try {
+    const token = getLoggedInUserToken();
+    if (!token) {
+      return "please log in";
+    }
+    // console.log(token);
+    const res = await axios.get(`/api/servicesBooked/provider`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        id,
+      },
+    });
+    // console.log(res.data);
+    return res.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const getServiceBooked = async (serviceBookedId) => {
   try {
     const token = getLoggedInUserToken();

@@ -42,7 +42,8 @@ const providerSchema = new mongoose.Schema({
       }
     },
   },
-  categories: [{ name: String, price: Number }],
+  category: { type: String },
+  price: { type: Number },
   rank: { type: Number },
   availableTimes: [{ from: Date, to: Date }],
   address: { type: String },

@@ -68,7 +68,7 @@ export const getUser = async (type) => {
     // console.log(type);
     const res = await axios.get(`http://localhost:5000/api/${type}s/me`, {
       headers: {
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
     });
     // console.log(res);
@@ -81,18 +81,19 @@ export const getUser = async (type) => {
 export const logout = async (type) => {
   try {
     const token = getLoggedInUserToken();
-
+    console.log(type);
     if (!token) {
       return "please log in";
     }
-    removeUserToken();
-    removeUserType();
 
     const res = await axios.post(`http://localhost:5000/api/${type}s/logout`, {
       headers: {
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
     });
+    removeUserToken();
+
+    removeUserType();
 
     return res.data;
   } catch (e) {
@@ -103,17 +104,18 @@ export const logout = async (type) => {
 export const updateUser = async (user, type) => {
   try {
     const token = getLoggedInUserToken();
-
+    console.log(user);
     if (!token) {
       return "please log in";
     }
 
     const res = await axios.patch(`http://localhost:5000/api/${type}s/me`, {
-      ...user,
+      user,
       headers: {
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
     });
+    //console.log('res',res);
 
     return res.data;
   } catch (e) {

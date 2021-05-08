@@ -5,7 +5,7 @@ const router = new express.Router();
 
 router.post("/providers/signup", async (req, res) => {
   const provider = new Provider(req.body);
-  console.log(req.body);
+  //console.log(req.body);
 
   try {
     await provider.save();
@@ -22,7 +22,7 @@ router.post("/providers/login", async (req, res) => {
       req.body.email,
       req.body.password
     );
-    console.log("hi", provider);
+    //console.log("hi", provider);
     const token = await provider.generateAuthToken();
     res.send({ provider, token });
   } catch (e) {
@@ -35,9 +35,9 @@ router.post("/providers/logout", auth, async (req, res) => {
     req.provider.tokens = req.provider.tokens.filter((token) => {
       return token.token !== req.token;
     });
-    await req.Provider.save();
+    await req.provider.save();
 
-    res.send();
+    res.send("logged out");
   } catch (e) {
     res.status(500).send();
   }
@@ -63,13 +63,20 @@ router.get("/providers", auth, async (req, res) => {
 });
 
 router.get("/providers/me", auth, async (req, res) => {
-  console.log(req);
+  //console.log(req);
   res.send(req.provider);
 });
 
 router.patch("/providers/me", auth, async (req, res) => {
   const updates = Object.keys(req.body);
-  const allowedUpdates = ["companyName", "email", "password", "categories"];
+  console.log("test");
+  const allowedUpdates = [
+    "companyName",
+    "email",
+    "password",
+    "category",
+    "price",
+  ];
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)
   );
@@ -80,20 +87,19 @@ router.patch("/providers/me", auth, async (req, res) => {
 
   try {
     updates.forEach((update) => {
-      if (update === "categories") {
-        let categoryIndex = req.provider.categories.findIndex(
-          (category) => category.name === req.body.categories.name
-        );
-        if (categoryIndex !== -1) {
-          req.provider.categories[categoryIndex].price =
-            req.body.categories.price;
-        } else {
-          console.log("hi", req.body.categories);
-          req.provider.categories.push(req.body.categories);
-        }
-      } else {
-        req.provider[update] = req.body[update];
-      }
+      // if (update === "categories") {
+      //   let categoryIndex = req.provider.categories.findIndex(
+      //     (category) => category.name === req.body.categories.name
+      //   );
+      //   if (categoryIndex !== -1) {
+      //     req.provider.categories[categoryIndex].price =
+      //       req.body.categories.price;
+      //   } else {
+      //     console.log("category", req.body.categories);
+      //     req.provider.categories.push(req.body.categories);
+      //   }
+      // } else {
+      req.provider[update] = req.body[update];
     });
     await req.provider.save();
     res.send(req.provider);

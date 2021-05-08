@@ -11,9 +11,9 @@ const AddCategory = () => {
   const [selectCategory, setSelectCategory] = useState("");
   const [inputPrice, setInputPrice] = useState("");
   const handleAddCategoryClick = () => {
-    setCategory({ name: selectCategory, price: inputPrice });
+    setCategory({ category: selectCategory, price: Number(inputPrice) });
     console.log(category);
-    updateUser({ categories: category }, "provider");
+    updateUser(category, "provider");
   };
   return (
     <StyledContainer>
