@@ -19,7 +19,7 @@ router.post("/servicesBooked", auth, async (req, res) => {
   }
 });
 
-router.get("/servicesBooked", auth, async (req, res) => {
+router.get("/receivers/servicesBooked", auth, async (req, res) => {
   try {
     await req.receiver.populate("servicesBooked").execPopulate();
     res.send(req.receiver.servicesBooked);
@@ -28,19 +28,29 @@ router.get("/servicesBooked", auth, async (req, res) => {
   }
 });
 
+router.get("/providers/servicesBooked", auth, async (req, res) => {
+  try {
+    await req.provider.populate("servicesBooked").execPopulate();
+    res.send(req.provider.servicesBooked);
+  } catch (e) {
+    res.status(500).send();
+  }
+});
+
 router.get("/servicesBooked/provider", auth, async (req, res) => {
   try {
-    const servicesBooked = await ServiceBooked.findMany({
+    console.log("id", req.body.id);
+    const servicesBooked = await ServiceBooked.find({
       provider: req.body.id,
     });
 
-    if (!serviceBooked) {
+    if (!servicesBooked) {
       return res.status(404).send();
     }
 
     res.send(servicesBooked);
   } catch (e) {
-    res.status(500).send();
+    res.status(500).send(e.message);
   }
 });
 

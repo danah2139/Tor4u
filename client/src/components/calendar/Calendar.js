@@ -5,7 +5,11 @@ import interactionPlugin from "@fullcalendar/interaction";
 import { getUserType } from "../../apis/auth";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-
+import {
+  getAllProviderServiceBooked,
+  getUserServiceBooked,
+  createNewServiceBooked,
+} from "../../apis/servicesBookedApi";
 const Calendar = () => {
   const [userType, setUserType] = useState("");
   const { id } = useParams();
@@ -14,6 +18,12 @@ const Calendar = () => {
     (async () => {
       const type = await getUserType();
       setUserType(type);
+      const userEvents = await getUserServiceBooked(type);
+      console.log("userEvents", userEvents);
+      if (id) {
+        const providersEvents = await getAllProviderServiceBooked({ id });
+        console.log("providersEvents", providersEvents);
+      }
     })();
   }, []);
   const handleDateSelect = (selectInfo) => {

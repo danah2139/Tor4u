@@ -69,11 +69,12 @@ router.get("/providers/me", auth, async (req, res) => {
 
 router.patch("/providers/me", auth, async (req, res) => {
   const updates = Object.keys(req.body);
-  console.log("test");
+
   const allowedUpdates = [
     "companyName",
     "email",
     "password",
+    "phone",
     "category",
     "price",
   ];
@@ -102,6 +103,7 @@ router.patch("/providers/me", auth, async (req, res) => {
       req.provider[update] = req.body[update];
     });
     await req.provider.save();
+    console.log("test", req.provider);
     res.send(req.provider);
   } catch (e) {
     res.status(400).send(e);

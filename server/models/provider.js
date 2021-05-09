@@ -90,7 +90,7 @@ providerSchema.methods.generateAuthToken = async function () {
 };
 
 providerSchema.statics.findByCredentials = async (email, password) => {
-  console.log("hi", email);
+  //console.log("hi", email);
   const provider = await Provider.findOne({ email });
 
   if (!provider) {
@@ -105,10 +105,6 @@ providerSchema.statics.findByCredentials = async (email, password) => {
 
   return provider;
 };
-
-// providerSchema.statics.pushCategories = async(name,price) =>{
-
-// }
 
 // Hash the plain text password before saving
 providerSchema.pre("save", async function (next) {

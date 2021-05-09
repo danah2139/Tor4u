@@ -86,11 +86,15 @@ export const logout = async (type) => {
       return "please log in";
     }
 
-    const res = await axios.post(`http://localhost:5000/api/${type}s/logout`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await axios.post(
+      `http://localhost:5000/api/${type}s/logout`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     removeUserToken();
 
     removeUserType();
@@ -104,17 +108,20 @@ export const logout = async (type) => {
 export const updateUser = async (user, type) => {
   try {
     const token = getLoggedInUserToken();
-    console.log(user);
+    console.log("update", user);
     if (!token) {
       return "please log in";
     }
 
-    const res = await axios.patch(`http://localhost:5000/api/${type}s/me`, {
+    const res = await axios.patch(
+      `http://localhost:5000/api/${type}s/me`,
       user,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     //console.log('res',res);
 
     return res.data;

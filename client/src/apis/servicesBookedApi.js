@@ -7,11 +7,15 @@ export const createNewServiceBooked = async (serviceBooked) => {
     if (!token) {
       return "please log in";
     }
-    const res = await axios.post("/api/servicesBooked", serviceBooked, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await axios.post(
+      "http://localhost:5000/api/servicesBooked",
+      serviceBooked,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     return res.data;
   } catch (e) {
@@ -20,7 +24,7 @@ export const createNewServiceBooked = async (serviceBooked) => {
 };
 
 // get receiever ServicesBooked
-export const getReceiverServiceBooked = async () => {
+export const getUserServiceBooked = async (type) => {
   // console.log(id);
   try {
     const token = getLoggedInUserToken();
@@ -28,11 +32,14 @@ export const getReceiverServiceBooked = async () => {
       return "please log in";
     }
     // console.log(token);
-    const res = await axios.get("/api/servicesBooked", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await axios.get(
+      `http://localhost:5000/api/${type}s/servicesBooked`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     // console.log(res.data);
     return res.data;
   } catch (e) {
@@ -44,20 +51,24 @@ export const getAllProviderServiceBooked = async (id) => {
   // console.log(id);
   try {
     const token = getLoggedInUserToken();
+    console.log("id", id);
     if (!token) {
       return "please log in";
     }
     // console.log(token);
-    const res = await axios.get(`/api/servicesBooked/provider`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        id,
-      },
-    });
+    const res = await axios.get(
+      `http://localhost:5000/api/servicesBooked/provider`,
+      id,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     // console.log(res.data);
     return res.data;
   } catch (e) {
-    console.log(e);
+    console.log(e.response);
   }
 };
 
@@ -68,11 +79,14 @@ export const getServiceBooked = async (serviceBookedId) => {
       return "please log in";
     }
     // console.log(token);
-    const res = await axios.get(`/api/servicesBooked/${serviceBookedId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await axios.get(
+      `http://localhost:5000/api/servicesBooked/${serviceBookedId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     // console.log(res.data);
     return res.data;
   } catch (e) {
@@ -88,11 +102,14 @@ export const deleteServiceBooked = async (serviceBookedId) => {
       return "please log in";
     }
     // console.log(token);
-    const res = await axios.delete(`/api/servicesBooked/${serviceBookedId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await axios.delete(
+      `http://localhost:5000/api/servicesBooked/${serviceBookedId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     // console.log(res.data);
     return res.data;
   } catch (e) {

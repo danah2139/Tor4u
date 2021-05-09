@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const ServiceBooked = mongoose.model("ServiceBooked", {
-  catagory: {
+  category: {
     type: String,
     required: true,
     trim: true,

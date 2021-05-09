@@ -9,6 +9,7 @@ import ProfileCard from "../profileCard/ProfileCard";
 import AddCategory from "../addCategory/AddCategory";
 import Dashboard from "../dashboard/Dashboard";
 import Calendar from "../calendar/Calendar";
+import UpdateProfileCard from "../updateProfileCard/UpdateProfileCard";
 
 const Main = () => {
   //const [userType, setUserType] = useState("Provider");
@@ -23,14 +24,14 @@ const Main = () => {
       <Route
         exact
         path="/profile"
-        render={(props) => <ProfileCard {...props} />}
+        render={(props) => <UpdateProfileCard {...props} />}
       />
       <Route exact path="/dashboard">
         <Dashboard />
       </Route>
       <Route exact path="/providersList" component={ProvidersList} />
-      <Route exact path="/addServiceToCalender" component={AddCategory} />
-      <Route exact path="/calendear/:id" component={Calendar} />
+      <Route exact path="/calendar" component={Calendar} />
+      <Route exact path="/calendar/:id" component={Calendar} />
     </main>
   );
 };

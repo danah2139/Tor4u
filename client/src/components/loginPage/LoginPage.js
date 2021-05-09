@@ -6,7 +6,7 @@ import ReceiverSignUpForm from "../signUpForm/ReceiverSignUpForm";
 import { getUserType, setUserType } from "../../apis/auth";
 
 const LoginPage = (props) => {
-  const [userTypeSelected, setUserTypeSelected] = useState();
+  const [userTypeSelected, setUserTypeSelected] = useState("provider");
   useEffect(() => {
     setUserTypeSelected(getUserType());
   }, []);
@@ -16,7 +16,8 @@ const LoginPage = (props) => {
 
   const handleClick = async () => {
     setUserTypeSelected(otherUserType);
-    await setUserType(userTypeSelected);
+    console.log("userTypeSelected", userTypeSelected);
+    setUserType(userTypeSelected);
   };
   return (
     <div>

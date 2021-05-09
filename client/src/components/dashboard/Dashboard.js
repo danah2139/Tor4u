@@ -39,9 +39,7 @@ const Dashboard = () => {
         <StyledText>Logged in as {username}</StyledText>
         <StyledLink to="/profile">Update Profile</StyledLink>
         {userType === "provider" ? (
-          <StyledLink to="/addServiceToCalender">
-            Add Service To Calender
-          </StyledLink>
+          <StyledLink to="/calendar">Show My Schedule</StyledLink>
         ) : (
           <StyledLink to="/ProvidersList">Schedule Service </StyledLink>
         )}

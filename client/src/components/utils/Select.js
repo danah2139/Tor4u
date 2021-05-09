@@ -1,9 +1,12 @@
 import { StyledContainer, StyledLabel, StyledSelect } from "./utilsStyle";
-const Select = ({ label, onChange }) => {
+const Select = ({ label, onChange, value }) => {
   return (
     <StyledContainer>
       <StyledLabel>{label}</StyledLabel>
-      <StyledSelect onChange={(event) => onChange(event.target.value)}>
+      <StyledSelect
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+      >
         <option>Choose Category</option>
         <option value="manicure">Manicure</option>
         <option value="plumbing">Plumbing</option>

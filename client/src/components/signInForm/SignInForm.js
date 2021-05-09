@@ -16,6 +16,7 @@ const SignInForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let userType = await getUserType();
+    console.log("user type", userType);
     let token = await logIn({ email, password }, userType);
     token ? history.replace(`/dashboard`) : setErrorMessage("user not exist");
     setTimeout(() => {
