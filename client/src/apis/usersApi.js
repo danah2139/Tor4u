@@ -112,6 +112,7 @@ export const updateUser = async (user, type) => {
     if (!token) {
       return "please log in";
     }
+    console.log("user", user);
 
     const res = await axios.patch(
       `http://localhost:5000/api/${type}s/me`,

@@ -69,18 +69,21 @@ router.get("/providers/me", auth, async (req, res) => {
 
 router.patch("/providers/me", auth, async (req, res) => {
   const updates = Object.keys(req.body);
-
+  console.log("updates", updates);
   const allowedUpdates = [
     "companyName",
     "email",
     "password",
     "phone",
+    "address",
     "category",
     "price",
+    "availableTimes",
   ];
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)
   );
+  console.log(isValidOperation);
 
   if (!isValidOperation) {
     return res.status(400).send({ error: "Invalid updates!" });

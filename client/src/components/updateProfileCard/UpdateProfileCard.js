@@ -21,7 +21,7 @@ const UpdateProfileCard = () => {
   const [message, setMessage] = useState("");
   const [provider, setProvider] = useState("");
   const [receiver, setReceiver] = useState("");
-
+  let data;
   useEffect(() => {
     (async () => {
       let userType = getUserType();
@@ -29,30 +29,34 @@ const UpdateProfileCard = () => {
       console.log("user type", type);
       if (type) {
         let userDetails = await getUser(type);
+        delete userDetails["_id"];
+        delete userDetails["__v"];
         if (type === "provider") {
           setProvider(userDetails);
         } else {
           setReceiver(userDetails);
         }
       }
-    })();
+    })(type);
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (type === "provider") {
-      let token = await updateUser(provider, "provider");
+      data = await updateUser(provider, "provider");
     } else {
-      let token = await updateUser(receiver, "receiver");
+      data = await updateUser(receiver, "receiver");
     }
-    history.push(`/dashboard`);
+    if (data) {
+      history.push(`/dashboard`);
+    }
     //
   };
 
   const handleChange = (e) => {
     if (type === "provider") {
-      setProvider({ ...provider, [e.target.name]: [e.target.value] });
+      setProvider({ ...provider, [e.target.name]: e.target.value });
     } else {
-      setReceiver({ ...receiver, [e.target.name]: [e.target.value] });
+      setReceiver({ ...receiver, [e.target.name]: e.target.value });
     }
   };
   return (
@@ -66,7 +70,7 @@ const UpdateProfileCard = () => {
             label="Company Name:"
             name="companyName"
             onChange={(e) => {
-              setProvider({ ...provider, [e.target.name]: [e.target.value] });
+              setProvider({ ...provider, [e.target.name]: e.target.value });
             }}
             value={provider["companyName"]}
           />
@@ -116,7 +120,7 @@ const UpdateProfileCard = () => {
             label="Category:"
             value={provider["category"]}
             onChange={(value) => {
-              setProvider({ ...provider, ["category"]: [value] });
+              setProvider({ ...provider, ["category"]: value });
             }}
           />
         )}
@@ -126,7 +130,7 @@ const UpdateProfileCard = () => {
             label="Price:"
             name="price"
             onChange={(e) => {
-              setProvider({ ...provider, [e.target.name]: [e.target.value] });
+              setProvider({ ...provider, [e.target.name]: e.target.value });
             }}
             value={provider["price"]}
           />
