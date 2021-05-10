@@ -37,11 +37,11 @@ router.get("/providers/servicesBooked", auth, async (req, res) => {
   }
 });
 
-router.get("/servicesBooked/provider", auth, async (req, res) => {
+router.get("/servicesBooked/provider/:id", auth, async (req, res) => {
   try {
-    console.log("id", req.body.id);
+    console.log("id", req.params.id);
     const servicesBooked = await ServiceBooked.find({
-      provider: req.body.id,
+      provider: req.params.id,
     });
 
     if (!servicesBooked) {

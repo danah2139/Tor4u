@@ -8,7 +8,11 @@ const ServiceBooked = mongoose.model("ServiceBooked", {
   price: {
     type: Number,
   },
-  date: {
+  start: {
+    type: Date,
+    required: true,
+  },
+  end: {
     type: Date,
     required: true,
   },
@@ -16,6 +20,16 @@ const ServiceBooked = mongoose.model("ServiceBooked", {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "Provider",
+  },
+  providerDetails: {
+    phone: String,
+    address: String,
+    companyName: String,
+  },
+  receiverDetails: {
+    phone: String,
+    address: String,
+    name: String,
   },
   receiver: {
     type: mongoose.Schema.Types.ObjectId,

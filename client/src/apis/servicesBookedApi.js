@@ -47,18 +47,17 @@ export const getUserServiceBooked = async (type) => {
   }
 };
 
-export const getAllProviderServiceBooked = async (id) => {
+export const getAllProviderServiceBooked = async (providerId) => {
   // console.log(id);
   try {
     const token = getLoggedInUserToken();
-    console.log("id", id);
+    console.log("id", providerId);
     if (!token) {
       return "please log in";
     }
     // console.log(token);
     const res = await axios.get(
-      `http://localhost:5000/api/servicesBooked/provider`,
-      id,
+      `http://localhost:5000/api/servicesBooked/provider/${providerId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

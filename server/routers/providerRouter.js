@@ -53,7 +53,7 @@ router.post("/providers/logout", auth, async (req, res) => {
 //   }
 // });
 
-router.get("/providers", auth, async (req, res) => {
+router.get("/providers", async (req, res) => {
   try {
     const providers = await Provider.find({});
     res.status(200).send(providers);
@@ -65,6 +65,17 @@ router.get("/providers", auth, async (req, res) => {
 router.get("/providers/me", auth, async (req, res) => {
   //console.log(req);
   res.send(req.provider);
+});
+
+router.get("/providers/:id", async (req, res) => {
+  try {
+    const _id = req.params.id;
+    let provider = await Provider.findById(_id);
+    console.log("provider", provider);
+    res.send(provider);
+  } catch (error) {
+    res.status(400).send(error);
+  }
 });
 
 router.patch("/providers/me", auth, async (req, res) => {

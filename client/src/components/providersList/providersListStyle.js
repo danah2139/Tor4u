@@ -27,7 +27,7 @@ export const StyledContainerColumn = styled.div`
     list-style: none;
   }
   & li:hover {
-    background: ${({ theme }) => theme.lightBlue};
+    color: ${({ theme }) => theme.lightBlue};
     cursor: pointer;
   }
 `;

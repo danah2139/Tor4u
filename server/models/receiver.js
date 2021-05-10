@@ -41,6 +41,11 @@ const receiverSchema = new mongoose.Schema({
   address: { type: String },
   city: { type: String },
   region: { type: String },
+  avatar: {
+    type: Buffer,
+    // to display the img in the html use:
+    // <img src="data:image/<insert file type: jpg/png,peng>;base64,<insert the value of the buffer>"
+  },
   // service_booked: {},
   tokens: [
     {
@@ -63,6 +68,7 @@ receiverSchema.methods.toJSON = function () {
 
   delete receiverObject.password;
   delete receiverObject.tokens;
+  delete receiverObject.avatar;
 
   return receiverObject;
 };

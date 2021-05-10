@@ -22,10 +22,10 @@ const UpdateProfileCard = () => {
   const [provider, setProvider] = useState("");
   const [receiver, setReceiver] = useState("");
   let data;
+  let userType;
   useEffect(() => {
     (async () => {
-      let userType = getUserType();
-      setType(userType);
+      setType(getUserType());
       console.log("user type", type);
       if (type) {
         let userDetails = await getUser(type);
@@ -37,8 +37,8 @@ const UpdateProfileCard = () => {
           setReceiver(userDetails);
         }
       }
-    })(type);
-  }, []);
+    })();
+  }, [type]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (type === "provider") {

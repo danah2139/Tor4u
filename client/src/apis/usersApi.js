@@ -36,15 +36,7 @@ export const logIn = async (user, type) => {
 
 export const getAllUsers = async (type) => {
   try {
-    const token = getLoggedInUserToken();
-    if (!token) {
-      return "please log in";
-    }
-    const res = await axios.get(`http://localhost:5000/api/${type}s`, {
-      headers: {
-        Authorization: token,
-      },
-    });
+    const res = await axios.get(`http://localhost:5000/api/${type}s`);
     return res.data;
   } catch (e) {
     console.log(e.response);
@@ -75,6 +67,18 @@ export const getUser = async (type) => {
     return res.data;
   } catch (e) {
     console.log(e.response);
+  }
+};
+
+export const getProvider = async (providerId) => {
+  try {
+    const res = await axios.get(
+      `http://localhost:5000/api/providers/${providerId}`
+    );
+    // console.log(res.data);
+    return res.data;
+  } catch (e) {
+    console.log(e);
   }
 };
 

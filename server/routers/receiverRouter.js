@@ -51,7 +51,7 @@ router.post("/receivers/logout", auth, async (req, res) => {
 //   }
 // });
 
-router.get("/receivers", auth, async (req, res) => {
+router.get("/receivers", async (req, res) => {
   try {
     const receivers = await Receiver.find({});
     res.status(200).send(receivers);
@@ -59,6 +59,16 @@ router.get("/receivers", auth, async (req, res) => {
     res.status(500).send(error);
   }
 });
+
+// router.get("/receivers/:id", async (req, res) => {
+//   try {
+//     const _id = req.params.id;
+//     let receiver = Receiver.findById(_id);
+//     res.send(receiver);
+//   } catch (error) {
+//     res.status(400).send(error);
+//   }
+// });
 
 router.get("/receivers/me", auth, async (req, res) => {
   res.send(req.receiver);
