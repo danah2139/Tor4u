@@ -9,6 +9,7 @@
     "client": "npm run start --prefix client",
     "start": "npm run server",
     "dev": "concurrently \"npm run server-dev\" \"npm run client\"",
+    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client",
     "git-upload": "git add -A && git commit -m $npm_config_comment && git push origin $npm_config_branch",
     "move-build": "mv client/build server/build",
     "build-client": "npm run build --prefix client && npm run move-build"
