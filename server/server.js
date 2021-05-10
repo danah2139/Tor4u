@@ -14,7 +14,7 @@ app.use(express.json());
 app.use("/api", receiverRouter);
 app.use("/api", providerRouter);
 app.use("/api", serviceBookedRouter);
-const publicDirectory = path.join(__dirname, "client/build");
+const publicDirectory = path.join(__dirname, "..client/build");
 app.use(express.static(publicDirectory));
 
 // if (process.env.NODE_ENV === "production") {
