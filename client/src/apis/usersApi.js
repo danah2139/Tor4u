@@ -8,7 +8,7 @@ import {
 
 export const createNewUser = async (user, type) => {
   try {
-    const res = await API.post(`/api/${type}s/signup`, user);
+    const res = await API.post(`/${type}s/signup`, user);
     setUserToken(res.data.token, type);
     // console.log(res.data[type]._id);
     return res.data[type]._id;
@@ -20,7 +20,7 @@ export const createNewUser = async (user, type) => {
 export const logIn = async (user, type) => {
   try {
     // console.log(user);
-    const res = await API.post(`/api/${type}s/login`, user);
+    const res = await API.post(`/${type}s/login`, user);
     // console.log("login", res);
     return setUserToken(res.data.token);
   } catch (e) {
@@ -30,7 +30,7 @@ export const logIn = async (user, type) => {
 
 export const getAllUsers = async (type) => {
   try {
-    const res = await API.get(`/api/${type}s`);
+    const res = await API.get(`/${type}s`);
     return res.data;
   } catch (e) {
     console.log(e.response);
@@ -52,7 +52,7 @@ export const getUser = async (type) => {
       return "please log in";
     }
     // console.log(type);
-    const res = await API.get(`/api/${type}s/me`, {
+    const res = await API.get(`/${type}s/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -66,7 +66,7 @@ export const getUser = async (type) => {
 
 export const getProvider = async (providerId) => {
   try {
-    const res = await API.get(`/api/providers/${providerId}`);
+    const res = await API.get(`/providers/${providerId}`);
     // console.log(res.data);
     return res.data;
   } catch (e) {
@@ -83,7 +83,7 @@ export const logout = async (type) => {
     }
 
     const res = await API.post(
-      `/api/${type}s/logout`,
+      `/${type}s/logout`,
       {},
       {
         headers: {
@@ -110,7 +110,7 @@ export const updateUser = async (user, type) => {
     }
     console.log("user", user);
 
-    const res = await API.patch(`/api/${type}s/me`, user, {
+    const res = await API.patch(`/${type}s/me`, user, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

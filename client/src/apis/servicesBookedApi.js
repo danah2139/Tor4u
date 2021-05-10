@@ -7,7 +7,7 @@ export const createNewServiceBooked = async (serviceBooked) => {
     if (!token) {
       return "please log in";
     }
-    const res = await API.post("/api/servicesBooked", serviceBooked, {
+    const res = await API.post("/servicesBooked", serviceBooked, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -28,7 +28,7 @@ export const getUserServiceBooked = async (type) => {
       return "please log in";
     }
     // console.log(token);
-    const res = await API.get(`/api/${type}s/servicesBooked`, {
+    const res = await API.get(`/${type}s/servicesBooked`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -49,7 +49,7 @@ export const getAllProviderServiceBooked = async (providerId) => {
       return "please log in";
     }
     // console.log(token);
-    const res = await API.get(`/api/servicesBooked/provider/${providerId}`, {
+    const res = await API.get(`/servicesBooked/provider/${providerId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -68,7 +68,7 @@ export const getServiceBooked = async (serviceBookedId) => {
       return "please log in";
     }
     // console.log(token);
-    const res = await API.get(`/api/servicesBooked/${serviceBookedId}`, {
+    const res = await API.get(`/servicesBooked/${serviceBookedId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -88,7 +88,7 @@ export const deleteServiceBooked = async (serviceBookedId) => {
       return "please log in";
     }
     // console.log(token);
-    const res = await API.delete(`/api/servicesBooked/${serviceBookedId}`, {
+    const res = await API.delete(`/servicesBooked/${serviceBookedId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
