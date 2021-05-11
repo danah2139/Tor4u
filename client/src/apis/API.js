@@ -4,7 +4,7 @@ if (process.env.NODE_ENV === "development") {
   url = "http://localhost:5000/api";
 }
 if (process.env.NODE_ENV === "production") {
-  url = "/api";
+  url = "https://tor4u-finish-project.herokuapp.com/api";
 }
 
 const api = axios.create({
