@@ -11,6 +11,9 @@ import { isUserLoggedIn, getUser } from "../../apis/usersApi";
 import Logout from "../logout/Logout";
 import ProfileCard from "../profileCard/ProfileCard";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserEdit, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
+
 const Dashboard = () => {
   const [userType, setUserType] = useState("");
   const [username, setUsername] = useState("");
@@ -37,11 +40,17 @@ const Dashboard = () => {
     <StyledContainer>
       <StyledContainerColumn>
         <StyledText>Logged in as {username}</StyledText>
-        <StyledLink to="/profile">Update Profile</StyledLink>
+        <StyledLink to="/profile">
+          Update Profile <FontAwesomeIcon icon={faUserEdit} size="1x" />
+        </StyledLink>
         {userType === "provider" ? (
-          <StyledLink to="/calendar">Show My Schedule</StyledLink>
+          <StyledLink to="/calendar">
+            Show My Schedule <FontAwesomeIcon icon={faCalendarAlt} size="1x" />
+          </StyledLink>
         ) : (
-          <StyledLink to="/ProvidersList">Schedule Service </StyledLink>
+          <StyledLink to="/ProvidersList">
+            Schedule Service <FontAwesomeIcon icon={faCalendarAlt} size="1x" />
+          </StyledLink>
         )}
         <Logout />
       </StyledContainerColumn>
