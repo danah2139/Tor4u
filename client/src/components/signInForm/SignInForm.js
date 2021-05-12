@@ -18,7 +18,7 @@ const SignInForm = () => {
     let userType = await getUserType();
     console.log("user type", userType);
     let token = await logIn({ email, password }, userType);
-    token ? history.replace(`/dashboard`) : setErrorMessage("user not exist");
+    token ? history.push(`/dashboard`) : setErrorMessage("user not exist");
     setTimeout(() => {
       setErrorMessage("");
     }, 3000);

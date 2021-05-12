@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 const Header = () => {
   const [path, setPath] = useState("/");
   useEffect(() => {
-    isUserLoggedIn() ? setPath("/dashboard") : setPath("/");
+    (async () => {
+      (await isUserLoggedIn()) ? setPath("/dashboard") : setPath("/");
+    })();
   }, []);
   return (
     <StyledHeader>

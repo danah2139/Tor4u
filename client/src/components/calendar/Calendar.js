@@ -55,13 +55,13 @@ const Calendar = () => {
           let receiver = await getUser("receiver");
           setReceiverDetails(receiver);
           const providersEvents = await getAllProviderServiceBooked(id);
-          providersEvents.map((event) => ({
+          let tempArr = providersEvents.map((event) => ({
             start: event.start,
             end: event.end,
             title: "Not Available",
           }));
           setEvents(...events, {
-            events: providersEvents,
+            events: tempArr,
             color: "blue",
             textColor: "black",
           });
