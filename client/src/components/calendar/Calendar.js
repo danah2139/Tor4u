@@ -133,6 +133,7 @@ const Calendar = () => {
       console.log("appotment", appointment);
 
       let response = await createNewServiceBooked(appointment);
+      console.log("response", response);
     } catch (e) {
       console.log(e);
       addInfo.revert();
