@@ -43,11 +43,14 @@ const Calendar = () => {
         }));
         // receiver : name address phone
         // provider : comnpanyName address phone
-        setEvents(...events, {
-          events: tempArr,
-          color: "red",
-          textColor: "white",
-        });
+        setEvents([
+          ...events,
+          {
+            events: [...tempArr],
+            color: "red",
+            textColor: "white",
+          },
+        ]);
         console.log(events);
         if (id) {
           let provider = await getProvider(id);
@@ -60,11 +63,14 @@ const Calendar = () => {
             end: event.end,
             title: "Not Available",
           }));
-          setEvents(...events, {
-            events: tempArr,
-            color: "blue",
-            textColor: "black",
-          });
+          setEvents([
+            ...events,
+            {
+              events: [...tempArr],
+              color: "blue",
+              textColor: "black",
+            },
+          ]);
           console.log("providersEvents", events);
         }
       }
@@ -76,15 +82,17 @@ const Calendar = () => {
     let calendarApi = selectInfo.view.calendar;
     calendarApi.unselect(); // clear date selection
     if (providerDetails && receiverDetails) {
-      calendarApi.addEvent({
-        //id: createEventId(),
-        title:
-          providerDetails.price +
-          providerDetails.category +
-          providerDetails.companyName,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-      });
+      calendarApi
+        .addEvent({
+          //id: createEventId(),
+          title:
+            providerDetails.price +
+            providerDetails.category +
+            providerDetails.companyName,
+          start: selectInfo.start,
+          end: selectInfo.end,
+        })
+        .setAllDay(false);
     }
   };
   const handleEventClick = (clickInfo) => {
@@ -105,14 +113,12 @@ const Calendar = () => {
 
   const handleEventAdd = async (addInfo) => {
     try {
-      console.log("addInfo", addInfo.event);
-      await createNewServiceBooked({
+      let appointment = {
         provider: id,
-        receiver: receiverDetails._id,
         category: providerDetails.category,
         price: providerDetails.price,
         start: addInfo.event.start,
-        end: addInfo.end,
+        end: addInfo.event.end,
         receiverDetails: {
           phone: receiverDetails.phone,
           address: receiverDetails.address,
@@ -123,7 +129,10 @@ const Calendar = () => {
           address: providerDetails.address,
           comapnyName: providerDetails.comapnyName,
         },
-      });
+      };
+      console.log("appotment", appointment);
+
+      let response = await createNewServiceBooked(appointment);
     } catch (e) {
       console.log(e);
       addInfo.revert();

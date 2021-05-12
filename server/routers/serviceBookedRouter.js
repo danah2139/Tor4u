@@ -9,7 +9,7 @@ router.post("/servicesBooked", auth, async (req, res) => {
     ...req.body,
     receiver: req.receiver._id,
   });
-  console.log(serviceBooked);
+  console.log("serviceBooked", serviceBooked);
 
   try {
     await serviceBooked.save();
