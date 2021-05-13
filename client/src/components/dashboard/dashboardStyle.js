@@ -15,6 +15,8 @@ export const StyledLink = styled(Link)`
 `;
 export const StyledContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
+
   // flex-direction: column;
   // justify-content: space-between;
   align-items: center;

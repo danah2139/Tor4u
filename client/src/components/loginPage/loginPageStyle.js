@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 export const StyledContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+
   // align-items: center;
 `;
 

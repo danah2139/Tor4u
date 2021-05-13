@@ -14,7 +14,7 @@ export const StyledContainer = styled.div`
 
 export const StyledHeader = styled.header`
   background: white;
-  border-radius: 15px;
+  // border-radius: 15px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;

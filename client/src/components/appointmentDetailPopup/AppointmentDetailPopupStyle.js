@@ -19,5 +19,6 @@ export const StyledContainer = styled.div`
     bottom: 25%;
     margin: auto;
     background: white;
+    z-index: 1000;
   }
 `;

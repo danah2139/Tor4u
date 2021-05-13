@@ -1,9 +1,9 @@
-import FullCalendar, { formatDate } from "@fullcalendar/react";
+import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { getUserType } from "../../apis/auth";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router";
 import {
   getAllProviderServiceBooked,
@@ -11,11 +11,15 @@ import {
   createNewServiceBooked,
 } from "../../apis/servicesBookedApi";
 import { getUser, getProvider } from "../../apis/usersApi";
+import { StyledContainer } from "./calendarStyle";
+import AppointmentDetailPopup from "../appointmentDetailPopup/AppointmentDetailPopup";
 const Calendar = () => {
   const [userType, setUserType] = useState("");
   const [providerDetails, setProviderDetails] = useState("");
   const [receiverDetails, setReceiverDetails] = useState("");
   const [events, setEvents] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const ref = useRef();
   const { id } = useParams();
 
   useEffect(() => {
@@ -26,7 +30,6 @@ const Calendar = () => {
       let userEvents = await getUserServiceBooked(type);
       let userDetailsField = otherUserType + "Details";
       let nameField = otherUserType === "provider" ? "companyName" : "name";
-      console.log("userEvents", userEvents);
       if (userEvents) {
         let tempArr = userEvents.map((event) => ({
           start: event.start,
@@ -41,58 +44,75 @@ const Calendar = () => {
             event[userDetailsField].phone +
             event[userDetailsField].address,
         }));
+        console.log("tempArr", tempArr);
+        let tempEvent = {
+          events: tempArr,
+          color: "red",
+          textColor: "white",
+        };
+        console.log(tempEvent);
+
         // receiver : name address phone
         // provider : comnpanyName address phone
-        setEvents([
-          ...events,
-          {
-            events: [...tempArr],
-            color: "red",
-            textColor: "white",
-          },
-        ]);
-        console.log(events);
+        setEvents([tempEvent]);
+
         if (id) {
           let provider = await getProvider(id);
           setProviderDetails(provider);
           let receiver = await getUser("receiver");
           setReceiverDetails(receiver);
-          const providersEvents = await getAllProviderServiceBooked(id);
+          let providersEvents = await getAllProviderServiceBooked(id);
           let tempArr = providersEvents.map((event) => ({
             start: event.start,
             end: event.end,
             title: "Not Available",
           }));
-          setEvents([
-            ...events,
-            {
-              events: [...tempArr],
-              color: "blue",
-              textColor: "black",
-            },
-          ]);
-          console.log("providersEvents", events);
+          tempEvent = {
+            events: tempArr,
+            color: "blue",
+            textColor: "black",
+          };
+          setEvents((prevState) => {
+            console.log([...prevState, tempEvent]);
+            return [...prevState, tempEvent];
+          });
+          console.log("events", events);
         }
       }
     })();
   }, []);
-  const handleDateSelect = async (selectInfo) => {
+  const handleDateSelect = (selectInfo) => {
     console.log(selectInfo);
     //let title = prompt("Please enter a new title for your event");
+    console.log(selectInfo.view);
+
     let calendarApi = selectInfo.view.calendar;
+
     calendarApi.unselect(); // clear date selection
     if (providerDetails && receiverDetails) {
-      calendarApi
-        .addEvent({
-          //id: createEventId(),
-          title:
-            providerDetails.price +
-            providerDetails.category +
-            providerDetails.companyName,
-          start: selectInfo.start,
-          end: selectInfo.end,
-        })
-        .setAllDay(false);
+      if (selectInfo.view.type === "dayGridMonth") {
+        //selectInfo.view.type = "timeGridDay";
+        console.log("ref", ref.current);
+        // ref.current.fullCalendar("changeView", "timeGridDay", `{
+        //   start: selectInfo.start,
+        //   end: selectInfo.end,
+        // });
+      } else {
+        calendarApi
+          .addEvent({
+            //id: createEventId(),
+            title:
+              " " +
+              providerDetails.category +
+              " " +
+              providerDetails.companyName +
+              " " +
+              providerDetails.price,
+            start: selectInfo.start,
+            end: selectInfo.end,
+          })
+          .setAllDay(false);
+      }
     }
   };
   const handleEventClick = (clickInfo) => {
@@ -134,6 +154,9 @@ const Calendar = () => {
 
       let response = await createNewServiceBooked(appointment);
       console.log("response", response);
+      if (response) {
+        // setShowPopup(true);
+      }
     } catch (e) {
       console.log(e);
       addInfo.revert();
@@ -148,33 +171,37 @@ const Calendar = () => {
     );
   }
   return (
-    <div>
+    <StyledContainer>
       {" "}
-      <FullCalendar
-        height="auto"
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        headerToolbar={{
-          left: "prev,next today",
-          center: "title",
-          right: "dayGridMonth,timeGridWeek,timeGridDay",
-        }}
-        initialView="dayGridMonth"
-        editable={true}
-        selectable={true}
-        selectMirror={true}
-        dayMaxEvents={true}
-        allDaySlot={false}
-        slotMinTime={"07:00:00"}
-        slotMaxTime={"20:00:00"}
-        events={events}
-        select={handleDateSelect}
-        eventContent={renderEventContent} // custom render function
-        eventClick={handleEventClick}
-        eventAdd={handleEventAdd}
-        // eventChange={this.handleEventChange} // called for drag-n-drop/resize
-        // eventRemove={this.handleEventRemove}
-      />
-    </div>
+      {!showPopup && (
+        <FullCalendar
+          ref={ref}
+          height="auto"
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          headerToolbar={{
+            left: "prev,next today",
+            center: "title",
+            right: "dayGridMonth,timeGridWeek,timeGridDay",
+          }}
+          initialView="dayGridMonth"
+          editable={true}
+          selectable={true}
+          selectMirror={true}
+          dayMaxEvents={true}
+          allDaySlot={false}
+          slotMinTime={"07:00:00"}
+          slotMaxTime={"20:00:00"}
+          eventSources={events}
+          select={handleDateSelect}
+          eventContent={renderEventContent} // custom render function
+          eventClick={handleEventClick}
+          eventAdd={handleEventAdd}
+          // eventChange={this.handleEventChange} // called for drag-n-drop/resize
+          // eventRemove={this.handleEventRemove}
+        />
+      )}
+      {/* {showPopup && <AppointmentDetailPopup />} */}
+    </StyledContainer>
   );
 };
 export default Calendar;
