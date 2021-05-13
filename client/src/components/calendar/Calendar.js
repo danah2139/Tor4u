@@ -47,8 +47,8 @@ const Calendar = () => {
         console.log("tempArr", tempArr);
         let tempEvent = {
           events: tempArr,
-          color: "red",
-          textColor: "white",
+          color: "#7ab7ff",
+          textColor: "black",
         };
         console.log(tempEvent);
 
@@ -65,12 +65,12 @@ const Calendar = () => {
           let tempArr = providersEvents.map((event) => ({
             start: event.start,
             end: event.end,
-            title: "Not Available",
+            title: " Not Available",
           }));
           tempEvent = {
             events: tempArr,
-            color: "blue",
-            textColor: "black",
+            color: "#E42645",
+            textColor: "white",
           };
           setEvents((prevState) => {
             console.log([...prevState, tempEvent]);
@@ -90,14 +90,7 @@ const Calendar = () => {
 
     calendarApi.unselect(); // clear date selection
     if (providerDetails && receiverDetails) {
-      if (selectInfo.view.type === "dayGridMonth") {
-        //selectInfo.view.type = "timeGridDay";
-        console.log("ref", ref.current);
-        // ref.current.fullCalendar("changeView", "timeGridDay", `{
-        //   start: selectInfo.start,
-        //   end: selectInfo.end,
-        // });
-      } else {
+      if (selectInfo.view.type !== "dayGridMonth") {
         calendarApi
           .addEvent({
             //id: createEventId(),
@@ -194,7 +187,7 @@ const Calendar = () => {
           eventSources={events}
           select={handleDateSelect}
           eventContent={renderEventContent} // custom render function
-          eventClick={handleEventClick}
+          // eventClick={handleEventClick}
           eventAdd={handleEventAdd}
           // eventChange={this.handleEventChange} // called for drag-n-drop/resize
           // eventRemove={this.handleEventRemove}

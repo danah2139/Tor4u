@@ -13,4 +13,9 @@ export const StyledForm = styled.form`
     margin-block-start: 0.5em;
     margin-block-end: 0.5em;
   }
+  [type="file"] {
+    display: none;
+    margin-bottem: 5px;
+    padding: 5px;
+  }
 `;

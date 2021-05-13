@@ -10,14 +10,6 @@ import Select from "../utils/Select";
 const UpdateProfileCard = () => {
   const history = useHistory();
   const [type, setType] = useState(null);
-  //   const [companyName, setCompanyName] = useState("");
-  //   const [name, setName] = useState("");
-  //   const [email, setEmail] = useState("");
-  //   const [phone, setPhone] = useState("");
-  //   const [password, setPassword] = useState("");
-  //   const [address, setAddress] = useState("");
-  //   const [category, setCategory] = useState("");
-  //   const [price, setPrice] = useState("");
   const [message, setMessage] = useState("");
   const [provider, setProvider] = useState("");
   const [receiver, setReceiver] = useState("");
@@ -54,9 +46,13 @@ const UpdateProfileCard = () => {
 
   const handleChange = (e) => {
     if (type === "provider") {
-      setProvider({ ...provider, [e.target.name]: e.target.value });
+      e.target.name === "avatar"
+        ? setProvider({ ...provider, [e.target.name]: e.target.files[0] })
+        : setProvider({ ...provider, [e.target.name]: e.target.value });
     } else {
-      setReceiver({ ...receiver, [e.target.name]: e.target.value });
+      e.target.name === "avatar"
+        ? setReceiver({ ...receiver, [e.target.name]: e.target.files[0] })
+        : setReceiver({ ...receiver, [e.target.name]: e.target.value });
     }
   };
   return (
@@ -106,15 +102,15 @@ const UpdateProfileCard = () => {
             type === "provider" ? provider["address"] : receiver["address"]
           }
         />
+
         <Input
-          required
-          label="Password:"
-          name="password"
+          label="Upload Image: "
+          name="avatar"
+          type="file"
           onChange={handleChange}
-          value={
-            type === "provider" ? provider["password"] : receiver["password"]
-          }
+          value={type === "provider" ? provider["avatar"] : receiver["avatar"]}
         />
+
         {type === "provider" && (
           <Select
             label="Category:"
