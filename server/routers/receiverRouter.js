@@ -1,7 +1,9 @@
 const express = require("express");
 const Receiver = require("../models/receiver");
 const auth = require("../middleware/auth");
+const upload = require("../middleware/upload");
 const router = new express.Router();
+const sharp = require("sharp");
 
 router.post("/receivers/signup", async (req, res) => {
   const receiver = new Receiver(req.body);
@@ -41,6 +43,26 @@ router.post("/receivers/logout", auth, async (req, res) => {
   }
 });
 
+// upload or update a profile pic
+router.post(
+  "/receivers/me/avatar",
+  auth,
+  upload.single("avatar"),
+  async (req, res) => {
+    const buffer = await sharp(req.file.buffer)
+      .resize({ width: 250, height: 250 })
+      .png()
+      .toBuffer();
+
+    req.receiver.avatar = buffer;
+    await req.user.save();
+    res.send("uploaded!");
+  },
+  (error, req, res, next) => {
+    res.status(400).send({ error: error.message });
+  }
+);
+
 // router.post("/receivers/logoutAll", auth, async (req, res) => {
 //   try {
 //     req.receiver.tokens = [];
@@ -71,28 +93,56 @@ router.get("/receivers", async (req, res) => {
 // });
 
 router.get("/receivers/me", auth, async (req, res) => {
+  console.log(req.receiver);
   res.send(req.receiver);
 });
 
-router.patch("/receivers/me", auth, async (req, res) => {
-  const updates = Object.keys(req.body);
-  const allowedUpdates = ["name", "email", "password", "address", "phone"];
-  const isValidOperation = updates.every((update) =>
-    allowedUpdates.includes(update)
-  );
+router.patch(
+  "/receivers/me",
+  auth,
+  upload.single("avatar"),
+  async (req, res) => {
+    const updates = Object.keys(req.body);
+    console.log(req.file);
+    console.log(updates);
+    const allowedUpdates = [
+      "name",
+      "email",
+      "password",
+      "address",
+      "phone",
+      "avatar",
+    ];
+    const isValidOperation = updates.every((update) =>
+      allowedUpdates.includes(update)
+    );
 
-  if (!isValidOperation) {
-    return res.status(400).send({ error: "Invalid updates!" });
-  }
+    if (!isValidOperation) {
+      return res.status(400).send({ error: "Invalid updates!" });
+    }
+    try {
+      console.log("update", updates);
+      if (req.file) {
+        const buffer = await sharp(req.file.buffer)
+          .resize({ width: 400, height: 400 })
+          .png()
+          .toBuffer();
+        req.body.avatar = buffer;
+        console.log("buffer", buffer);
+      }
 
-  try {
-    updates.forEach((update) => (req.receiver[update] = req.body[update]));
-    await req.receiver.save();
-    res.send(req.receiver);
-  } catch (e) {
-    res.status(400).send(e);
+      updates.forEach((update) => {
+        console.log(update, "update");
+        req.receiver[update] = req.body[update];
+      });
+
+      await req.receiver.save();
+      res.send(req.receiver);
+    } catch (e) {
+      res.status(400).send(e);
+    }
   }
-});
+);
 
 router.delete("/receivers/me", auth, async (req, res) => {
   try {

@@ -8,7 +8,8 @@ export const StyledForm = styled.form`
   padding: 10px 15px;
   // background: white;
   border-radius: 15px;
-  max-height: 12rem;
+  justify-content: space-between;
+
   h3 {
     margin-block-start: 0.5em;
     margin-block-end: 0.5em;

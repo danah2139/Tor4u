@@ -11,4 +11,8 @@ export const StyledContainer = styled.div`
   .title {
     font-weight: 700;
   }
+  img {
+    height: 400px;
+    width: 400px;
+  }
 `;

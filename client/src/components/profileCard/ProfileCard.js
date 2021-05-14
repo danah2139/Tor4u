@@ -16,14 +16,18 @@ const ProfileCard = () => {
     let tempUserArr = [];
     if (user) {
       for (let key in user) {
-        if (key !== "_id" && key !== "__v" && user[key] !== [])
+        if (key === "avatar") {
+          tempUserArr.push(<img src={user["avatar"].buffer} alt="img" />);
+        } else if (key !== "_id" && key !== "__v" && user[key] !== []) {
           tempUserArr.push(
             <div>
               <span className="title">{key.toUpperCase()} : </span>
               <span>{user[key]}</span>
             </div>
           );
+        }
       }
+      //console.log(user.avatar.buffer);
       return tempUserArr;
     }
     return <div>user not exist</div>;

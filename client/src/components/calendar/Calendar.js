@@ -156,9 +156,26 @@ const Calendar = () => {
     }
   };
   function renderEventContent(eventInfo) {
+    console.log(
+      eventInfo.event._instance.range.start
+        .toString()
+        .match(/[0-9][0-9]:[0-9][0-9]/)[0],
+      eventInfo.event._instance.range.end
+        .toString()
+        .match(/[0-9][0-9]:[0-9][0-9]/)[0]
+    );
+    let range = `${
+      eventInfo.event._instance.range.start
+        .toString()
+        .match(/[0-9][0-9]:[0-9][0-9]/)[0]
+    }-${
+      eventInfo.event._instance.range.end
+        .toString()
+        .match(/[0-9][0-9]:[0-9][0-9]/)[0]
+    }`;
     return (
       <>
-        <b>{eventInfo.timeText}</b>
+        <b>{range}</b>
         <i>{eventInfo.event.title}</i>
       </>
     );

@@ -1,6 +1,8 @@
 const express = require("express");
 const Provider = require("../models/provider");
 const auth = require("../middleware/auth");
+const upload = require("../middleware/upload");
+const sharp = require("sharp");
 const router = new express.Router();
 
 router.post("/providers/signup", async (req, res) => {
@@ -43,6 +45,26 @@ router.post("/providers/logout", auth, async (req, res) => {
   }
 });
 
+// upload or update a profile pic
+router.post(
+  "/providers/me/avatar",
+  auth,
+  upload.single("avatar"),
+  async (req, res) => {
+    const buffer = await sharp(req.file.buffer)
+      .resize({ width: 250, height: 250 })
+      .png()
+      .toBuffer();
+
+    req.provider.avatar = buffer;
+    await req.user.save();
+    res.send("uploaded!");
+  },
+  (error, req, res, next) => {
+    res.status(400).send({ error: error.message });
+  }
+);
+
 // router.post("/providers/logoutAll", auth, async (req, res) => {
 //   try {
 //     req.provider.tokens = [];
@@ -78,51 +100,53 @@ router.get("/providers/:id", async (req, res) => {
   }
 });
 
-router.patch("/providers/me", auth, async (req, res) => {
-  const updates = Object.keys(req.body);
-  console.log("updates", updates);
-  const allowedUpdates = [
-    "companyName",
-    "email",
-    "password",
-    "phone",
-    "address",
-    "category",
-    "price",
-    "availableTimes",
-  ];
-  const isValidOperation = updates.every((update) =>
-    allowedUpdates.includes(update)
-  );
-  console.log(isValidOperation);
+router.patch(
+  "/providers/me",
+  auth,
+  upload.single("avatar"),
+  async (req, res) => {
+    const updates = Object.keys(req.body);
+    console.log("updates", updates);
+    const allowedUpdates = [
+      "companyName",
+      "email",
+      "password",
+      "phone",
+      "address",
+      "category",
+      "price",
+      "availableTimes",
+      "avatar",
+    ];
+    const isValidOperation = updates.every((update) =>
+      allowedUpdates.includes(update)
+    );
+    console.log(isValidOperation);
 
-  if (!isValidOperation) {
-    return res.status(400).send({ error: "Invalid updates!" });
-  }
+    if (!isValidOperation) {
+      return res.status(400).send({ error: "Invalid updates!" });
+    }
 
-  try {
-    updates.forEach((update) => {
-      // if (update === "categories") {
-      //   let categoryIndex = req.provider.categories.findIndex(
-      //     (category) => category.name === req.body.categories.name
-      //   );
-      //   if (categoryIndex !== -1) {
-      //     req.provider.categories[categoryIndex].price =
-      //       req.body.categories.price;
-      //   } else {
-      //     console.log("category", req.body.categories);
-      //     req.provider.categories.push(req.body.categories);
-      //   }
-      // } else {
-      req.provider[update] = req.body[update];
-    });
-    await req.provider.save();
-    console.log("test", req.provider);
-    res.send(req.provider);
-  } catch (e) {
-    res.status(400).send(e);
+    try {
+      const buffer = await sharp(req.file.buffer)
+        .resize({ width: 400, height: 400 })
+        .png()
+        .toBuffer();
+      updates.forEach((update) => {
+        if (req.file && update === "avatar") {
+          req.provider.avatar = buffer;
+        } else if (update !== "avatar") {
+          req.provider[update] = req.body[update];
+        }
+      });
+      await req.provider.save();
+      console.log("test", req.provider);
+      res.send(req.provider);
+    } catch (e) {
+      res.status(400).send(e);
+    }
   }
-});
+);
 
 // router.put("/providers/me/categories", auth, async (req, res) => {
 //   try {

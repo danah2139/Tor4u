@@ -25,7 +25,7 @@ export const StyledButton = styled.button`
   color: white;
   display: flex;
   font-size: 1em;
-  max-width: 120px;
+  // max-width: 120px;
   align-items: center;
   justify-content: space-between;
   margin-right: 10px;

@@ -1,14 +1,15 @@
 const multer = require("multer");
 
 // configure uploaded files
-exports.fileUpload = multer({
+const fileUpload = multer({
   limits: {
     // limit to 1MB
-    fileSize: 1000000,
+    fileSize: 3000000,
   },
   fileFilter(req, file, callback) {
-    const fileName = file.originalname.toLowerCase();
-    if (!fileName.endsWith(".png" || ".jpg" || ".gif")) {
+    const fileName = file.originalname;
+    // console.log("fileName", fileName);
+    if (!fileName.match(/\.(jpg|jpeg|png)$/i)) {
       return callback(new Error("file must be .png/.jpg/.gif format"));
     }
     return callback(undefined, true);
@@ -16,3 +17,4 @@ exports.fileUpload = multer({
     // callback(undefined, false);
   },
 });
+module.exports = fileUpload;

@@ -108,15 +108,14 @@ const UpdateProfileCard = () => {
           name="avatar"
           type="file"
           onChange={handleChange}
-          value={type === "provider" ? provider["avatar"] : receiver["avatar"]}
         />
 
         {type === "provider" && (
           <Select
             label="Category:"
             value={provider["category"]}
-            onChange={(value) => {
-              setProvider({ ...provider, ["category"]: value });
+            onChange={(catagory) => {
+              setProvider({ ...provider, ["category"]: catagory });
             }}
           />
         )}
