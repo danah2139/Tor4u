@@ -45,12 +45,12 @@ const providerSchema = new mongoose.Schema({
   category: { type: String },
   price: { type: Number },
   rank: { type: Number },
-  availableTimes: [{ from: Date, to: Date }],
+  // availableTimes: [{ from: Date, to: Date }],
   address: { type: String },
   city: { type: String },
   region: { type: String },
   avatar: {
-    // type: Buffer,
+    type: Buffer,
     // to display the img in the html use:
     // <img src="data:image/<insert file type: jpg/png,peng>;base64,<insert the value of the buffer>"
   },
@@ -77,7 +77,6 @@ providerSchema.methods.toJSON = function () {
 
   delete providerObject.password;
   delete providerObject.tokens;
-  delete providerObject.avatar;
 
   return providerObject;
 };

@@ -108,14 +108,13 @@ export const updateUser = async (user, type) => {
     if (!token) {
       return "please log in";
     }
-    console.log("user", user);
 
     const res = await API.patch(`/${type}s/me`, user, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    //console.log('res',res);
+    console.log("res", res);
 
     return res.data;
   } catch (e) {

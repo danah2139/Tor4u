@@ -102,9 +102,8 @@ router.patch(
   auth,
   upload.single("avatar"),
   async (req, res) => {
-    const updates = Object.keys(req.body);
     console.log(req.file);
-    console.log(updates);
+    //console.log(updates);
     const allowedUpdates = [
       "name",
       "email",
@@ -113,15 +112,10 @@ router.patch(
       "phone",
       "avatar",
     ];
-    const isValidOperation = updates.every((update) =>
-      allowedUpdates.includes(update)
-    );
 
-    if (!isValidOperation) {
-      return res.status(400).send({ error: "Invalid updates!" });
-    }
     try {
-      console.log("update", updates);
+      //console.log("update", updates);
+      console.log(req.file, "file");
       if (req.file) {
         const buffer = await sharp(req.file.buffer)
           .resize({ width: 400, height: 400 })
@@ -130,9 +124,17 @@ router.patch(
         req.body.avatar = buffer;
         console.log("buffer", buffer);
       }
+      const updates = Object.keys(req.body);
+      const isValidOperation = updates.every((update) =>
+        allowedUpdates.includes(update)
+      );
+
+      if (!isValidOperation) {
+        return res.status(400).send({ error: "Invalid updates!" });
+      }
 
       updates.forEach((update) => {
-        console.log(update, "update");
+        //console.log(update, "update");
         req.receiver[update] = req.body[update];
       });
 

@@ -18,12 +18,13 @@ const UpdateProfileCard = () => {
   useEffect(() => {
     (async () => {
       setType(getUserType());
-      console.log("user type", type);
+      //console.log("user type", type);
       if (type) {
         let userDetails = await getUser(type);
         delete userDetails["_id"];
         delete userDetails["__v"];
         if (type === "provider") {
+          console.log(userDetails);
           setProvider(userDetails);
         } else {
           setReceiver(userDetails);
@@ -33,11 +34,21 @@ const UpdateProfileCard = () => {
   }, [type]);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let fd = new FormData();
     if (type === "provider") {
-      data = await updateUser(provider, "provider");
+      Object.entries(provider).forEach((value) => {
+        if (value[1]) fd.append(value[0], value[1]);
+      });
     } else {
-      data = await updateUser(receiver, "receiver");
+      Object.entries(receiver).forEach((value) => {
+        console.log(value, "value");
+        if (value[1]) fd.append(value[0], value[1]);
+      });
+
+      //fd.append("avatar", receiver.avatar);
     }
+    console.log(fd, "fd");
+    data = await updateUser(fd, type);
     if (data) {
       history.push(`/dashboard`);
     }
@@ -45,6 +56,8 @@ const UpdateProfileCard = () => {
   };
 
   const handleChange = (e) => {
+    //console.log(e.target, "avatar");
+
     if (type === "provider") {
       e.target.name === "avatar"
         ? setProvider({ ...provider, [e.target.name]: e.target.files[0] })

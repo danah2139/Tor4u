@@ -105,8 +105,7 @@ router.patch(
   auth,
   upload.single("avatar"),
   async (req, res) => {
-    const updates = Object.keys(req.body);
-    console.log("updates", updates);
+    //console.log("updates", updates);
     const allowedUpdates = [
       "companyName",
       "email",
@@ -118,29 +117,34 @@ router.patch(
       "availableTimes",
       "avatar",
     ];
-    const isValidOperation = updates.every((update) =>
-      allowedUpdates.includes(update)
-    );
-    console.log(isValidOperation);
-
-    if (!isValidOperation) {
-      return res.status(400).send({ error: "Invalid updates!" });
-    }
 
     try {
-      const buffer = await sharp(req.file.buffer)
-        .resize({ width: 400, height: 400 })
-        .png()
-        .toBuffer();
+      if (req.file) {
+        const buffer = await sharp(req.file.buffer)
+          .resize({ width: 400, height: 400 })
+          .png()
+          .toBuffer();
+        req.body.avatar = buffer;
+      }
+      const updates = Object.keys(req.body);
+      const isValidOperation = updates.every((update) =>
+        allowedUpdates.includes(update)
+      );
+      console.log(isValidOperation);
+
+      if (!isValidOperation) {
+        return res.status(400).send({ error: "Invalid updates!" });
+      }
+      console.log("test", req.body);
       updates.forEach((update) => {
-        if (req.file && update === "avatar") {
-          req.provider.avatar = buffer;
-        } else if (update !== "avatar") {
-          req.provider[update] = req.body[update];
-        }
+        console.log(update);
+        req.provider[update] = req.body[update];
       });
+
+      delete req.provider.availableTimes;
+      console.log("test2", req.provider);
       await req.provider.save();
-      console.log("test", req.provider);
+
       res.send(req.provider);
     } catch (e) {
       res.status(400).send(e);

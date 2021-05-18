@@ -17,7 +17,9 @@ const ProfileCard = () => {
     if (user) {
       for (let key in user) {
         if (key === "avatar") {
-          tempUserArr.push(<img src={user["avatar"].buffer} alt="img" />);
+          tempUserArr.push(
+            <img src={`data:image/png;base64, ${user["avatar"]}`} alt="img" />
+          );
         } else if (key !== "_id" && key !== "__v" && user[key] !== []) {
           tempUserArr.push(
             <div>
