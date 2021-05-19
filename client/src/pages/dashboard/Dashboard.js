@@ -8,8 +8,8 @@ import {
 } from "./dashboardStyle";
 import { getUserType } from "../../apis/auth";
 import { isUserLoggedIn, getUser } from "../../apis/usersApi";
-import Logout from "../logout/Logout";
-import ProfileCard from "../profileCard/ProfileCard";
+import Logout from "../../components/logout/Logout";
+import ProfileCard from "../../components/profileCard/ProfileCard";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserEdit, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";

@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { Redirect, Route } from "react-router-dom";
-import LandingPage from "../landingPage/LandingPage";
-import LoginPage from "../loginPage/LoginPage";
+import LandingPage from "../../pages/landingPage/LandingPage";
+import LoginPage from "../../pages/loginPage/LoginPage";
 
 import { isUserLoggedIn } from "../../apis/usersApi";
 import ProvidersList from "../providersList/ProvidersList";
-import ProfileCard from "../profileCard/ProfileCard";
-import AddCategory from "../addCategory/AddCategory";
-import Dashboard from "../dashboard/Dashboard";
+import Dashboard from "../../pages/dashboard/Dashboard";
 import Calendar from "../calendar/Calendar";
 import UpdateProfileCard from "../updateProfileCard/UpdateProfileCard";
 

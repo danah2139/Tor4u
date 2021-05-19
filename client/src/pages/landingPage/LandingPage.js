@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { StyledContainer } from "./landingPageStyle";
-import Button from "../utils/Button";
+import Button from "../../components/utils/Button";
 import { setUserType } from "../../apis/auth";
 //import { testConnection } from "../../apis/usersApi";
 

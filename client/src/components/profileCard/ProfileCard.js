@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { getUserType } from "../../apis/auth";
 import { getUser } from "../../apis/usersApi";
-import { StyledContainer } from "./profileCardStyle";
+import AppointmentsList from "../appointmentsList/AppointmentsList";
+import { StyledColumn, StyledContainer } from "./profileCardStyle";
 const ProfileCard = () => {
   const [user, setUser] = useState("");
   useEffect(() => {
@@ -9,18 +10,19 @@ const ProfileCard = () => {
       const userType = await getUserType();
       const user = await getUser(userType);
       setUser(user);
-      console.log(user);
+      // console.log(user);
     })();
   }, []);
   const renderUser = () => {
     let tempUserArr = [];
     if (user) {
+      let srcLink = user.avatar
+        ? `data:image/png;base64, ${user["avatar"]}`
+        : "./avatar.jpg";
+
+      tempUserArr.push(<img src={srcLink} alt="img" />);
       for (let key in user) {
-        if (key === "avatar") {
-          tempUserArr.push(
-            <img src={`data:image/png;base64, ${user["avatar"]}`} alt="img" />
-          );
-        } else if (key !== "_id" && key !== "__v" && user[key] !== []) {
+        if (key !== "_id" && key !== "__v" && user[key] !== []) {
           tempUserArr.push(
             <div>
               <span className="title">{key.toUpperCase()} : </span>
@@ -34,6 +36,11 @@ const ProfileCard = () => {
     }
     return <div>user not exist</div>;
   };
-  return <StyledContainer>{renderUser()}</StyledContainer>;
+  return (
+    <StyledContainer>
+      <StyledColumn>{renderUser()}</StyledColumn>
+      <AppointmentsList />
+    </StyledContainer>
+  );
 };
 export default ProfileCard;

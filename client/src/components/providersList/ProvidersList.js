@@ -33,21 +33,29 @@ const ProvidersList = () => {
 
   const renderItem = (provider) => {
     const tempArr = [];
+
     for (let key in provider) {
       if (
         key !== "_id" &&
         key !== "password" &&
         key !== "__v" &&
-        key !== "category"
+        key !== "category" &&
+        key !== "avatar"
       ) {
         tempArr.push(
           <div>
-            <span>{key} : </span>
+            <span className="title">{key} : </span>
             <span>{provider[key]}</span>
           </div>
         );
       }
     }
+
+    let srcLink = provider.avatar
+      ? `data:image/png;base64, ${provider["avatar"]}`
+      : "./avatar.jpg";
+
+    tempArr.push(<img src={srcLink} alt="img" />);
 
     return tempArr;
   };

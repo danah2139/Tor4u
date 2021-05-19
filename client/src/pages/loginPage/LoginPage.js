@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { StyledLink, StyledContainer } from "./loginPageStyle";
-import SignInForm from "../signInForm/SignInForm";
-import ProviderSignUpForm from "../signUpForm/ProviderSignUpForm";
-import ReceiverSignUpForm from "../signUpForm/ReceiverSignUpForm";
+import SignInForm from "../../components/signInForm/SignInForm";
+import ProviderSignUpForm from "../../components/signUpForm/ProviderSignUpForm";
+import ReceiverSignUpForm from "../../components/signUpForm/ReceiverSignUpForm";
 import { getUserType, setUserType } from "../../apis/auth";
 
 const LoginPage = (props) => {

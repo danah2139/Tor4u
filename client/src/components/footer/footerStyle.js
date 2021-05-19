@@ -6,8 +6,10 @@ export const StyledContainer = styled.div`
   justify-content: center;
   align-items: center;
   // border-radius: 15px;
-  padding: 10px 10px;
+  padding: 5px 5px;
   background: #183153;
+  box-shadow: 0 0 1px grey;
+
   & p {
     margin-right: 10px;
     font-weight: 700;

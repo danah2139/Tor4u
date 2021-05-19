@@ -13,6 +13,10 @@ export const StyledLabel = styled.label`
 
 export const StyledSelect = styled.select`
   overflow: scroll;
+  border: 2px solid ${({ theme }) => theme.darkBlue};
+  option {
+    text-align: center;
+  }
 `;
 
 export const StyledContainer = styled.div`

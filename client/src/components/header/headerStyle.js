@@ -13,12 +13,13 @@ export const StyledContainer = styled.div`
 `;
 
 export const StyledHeader = styled.header`
-  background: white;
+  background-color: ${({ theme }) => theme.white};
   // border-radius: 15px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 10px 10px;
+  box-shadow: 0 0 1px grey;
+  padding: 5px 5px;
 `;
 
 export const StyledH1 = styled.h1`
