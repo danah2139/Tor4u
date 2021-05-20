@@ -4,7 +4,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { getUserType } from "../../apis/auth";
 import { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router";
+import { useParams, useHistory } from "react-router";
 import {
   getAllProviderServiceBooked,
   getUserServiceBooked,
@@ -23,7 +23,7 @@ const Calendar = () => {
   const [message, setMessage] = useState("");
   const ref = useRef();
   const { id } = useParams();
-
+  const history = useHistory();
   useEffect(() => {
     (async () => {
       const type = await getUserType();
@@ -86,7 +86,7 @@ const Calendar = () => {
     });
     res ? setMessage("email send") : setMessage("email not exist");
     setTimeout(() => {
-      setErrorMessage("");
+      setMessage("");
       history.push(`/dashboard`);
     }, 3000);
   };
