@@ -12,11 +12,22 @@ const AppointmentDetailPopup = ({
   const [month, day, hour] = JSON.stringify(appointment.start).match(
     /-[0-9][0-9]|[0-9][0-9]:[0-9][0-9]/g
   );
-  console.log(day);
+  const catgoryArr = appointment.category.split(/([A-Z])/);
+  console.log(appointment.category.split(/([A-Z])/));
   return (
     <StyledContainer>
       <div className="popup_inner">
-        <h1>TOR4U - {appointment.category}</h1>
+        <h1>
+          TOR4U -{" "}
+          {catgoryArr[1]
+            ? (
+                catgoryArr[0] +
+                " " +
+                catgoryArr[1] +
+                catgoryArr[2]
+              ).toUpperCase()
+            : catgoryArr[0].toUpperCase()}
+        </h1>
         <p>
           An appointment has been made for you to{" "}
           <span>{appointment.providerDetails.companyName}</span> <br />
