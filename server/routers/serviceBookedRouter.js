@@ -22,11 +22,11 @@ router.post("/servicesBooked", auth, async (req, res) => {
 
 // send email for reminder
 router.post("/servicesBooked/email", auth, async (req, res) => {
-  const appoontmantDetial = req.body;
-
+  const appointmentDetial = req.body;
+  console.log("appoontmantDetial ", appointmentDetial);
   try {
-    await sendAppointmentMail(appoontmantDetial);
-    return res.status(201).send("email send");
+    const result = await sendAppointmentMail(appointmentDetial);
+    return res.send(result);
   } catch (e) {
     res.status(400).send(e);
   }

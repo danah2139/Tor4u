@@ -15,7 +15,6 @@ import { getUser, getProvider } from "../../apis/usersApi";
 import { StyledContainer } from "./calendarStyle";
 import AppointmentDetailPopup from "../appointmentDetailPopup/AppointmentDetailPopup";
 const Calendar = () => {
-  const [userType, setUserType] = useState("");
   const [providerDetails, setProviderDetails] = useState("");
   const [receiverDetails, setReceiverDetails] = useState("");
   const [events, setEvents] = useState([]);
@@ -27,7 +26,6 @@ const Calendar = () => {
   useEffect(() => {
     (async () => {
       const type = await getUserType();
-      setUserType(type);
       let otherUserType = type === "provider" ? "receiver" : "provider";
       let userEvents = await getUserServiceBooked(type);
       let userDetailsField = otherUserType + "Details";
@@ -155,7 +153,7 @@ const Calendar = () => {
     }
   };
   function renderEventContent(eventInfo) {
-    console.log(eventInfo.event);
+    // console.log(eventInfo.event);
     let range = `${
       eventInfo.event.startStr.match(/[0-9][0-9]:[0-9][0-9]/)[0]
     }-${eventInfo.event.endStr.match(/[0-9][0-9]:[0-9][0-9]/)[0]}`;

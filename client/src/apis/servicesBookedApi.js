@@ -25,6 +25,7 @@ export const sendEmailForServiceBooked = async (serviceBooked) => {
     if (!token) {
       return "please log in";
     }
+    console.log(serviceBooked);
     const res = await API.post("/servicesBooked/email", serviceBooked, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -62,7 +63,7 @@ export const getAllProviderServiceBooked = async (providerId) => {
   // console.log(id);
   try {
     const token = getLoggedInUserToken();
-    console.log("id", providerId);
+    //console.log("id", providerId);
     if (!token) {
       return "please log in";
     }

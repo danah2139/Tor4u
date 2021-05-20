@@ -11,6 +11,9 @@ export const StyledContainer = styled.div`
   margin: auto;
   background-color: rgba(0, 0, 0, 0.5);
 
+  span {
+    font-weight: 700;
+  }
   .popup_inner {
     position: absolute;
     left: 25%;
@@ -20,6 +23,12 @@ export const StyledContainer = styled.div`
     margin: auto;
     background: white;
     z-index: 1000;
+    padding: 10px;
+  }
+  .buttons-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
