@@ -22,3 +22,11 @@ export const StyledContainer = styled.div`
     z-index: 1000;
   }
 `;
+
+export const StyledMessage = styled.div`
+  color: white;
+  border: 2px solid ${({ theme }) => theme.darkBlue};
+  border-radius: 3px;
+  padding: 3px 10px;
+  background: ${({ theme }) => theme.darkBlue};
+`;

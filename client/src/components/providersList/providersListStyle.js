@@ -12,12 +12,15 @@ export const StyledWarning = styled.div`
 export const StyledContainerColumn = styled.div`
   border: 2px solid ${({ theme }) => theme.darkBlue};
   background-color: ${({ theme }) => theme.white};
-
-  width: 700px;
-  padding: 10px;
+  width: 70%;
   margin: 20px;
   display: flex;
+  padding: 0 10px;
+
   flex-direction: column;
+  justify-content: space-between;
+  // align-items: center;
+
   text-align: center;
   .title {
     font-weight: 700;
@@ -26,7 +29,17 @@ export const StyledContainerColumn = styled.div`
     padding: 6px 10px;
     border-bottom: 2px solid ${({ theme }) => theme.darkBlue};
   }
+  & ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    // width: 100%;
+  }
   & li {
+    display: block;
+
     padding: 3px 10px;
     border: 2px solid ${({ theme }) => theme.darkBlue};
     box-shadow: 0 0 1px grey;
@@ -34,6 +47,8 @@ export const StyledContainerColumn = styled.div`
     display: flex;
     align-items: center;
     list-style: none;
+    margin-bottom: 5px;
+    width: 100%;
   }
   & img {
     height: 75px;
@@ -49,6 +64,11 @@ export const StyledHeader = styled.h3``;
 export const StyledListItem = styled.li`
   display: flex;
   justify-content: space-between;
+  .item {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
   &:hover {
     color: ${({ theme }) => theme.darkBlue};
   }

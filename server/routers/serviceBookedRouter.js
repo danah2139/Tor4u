@@ -2,6 +2,7 @@ const express = require("express");
 const ServiceBooked = require("../models/serviceBooked");
 const auth = require("../middleware/auth");
 const router = new express.Router();
+const { sendAppointmentMail } = require("../emails/appointment");
 
 // create a new serviceBooked
 router.post("/servicesBooked", auth, async (req, res) => {
@@ -14,6 +15,18 @@ router.post("/servicesBooked", auth, async (req, res) => {
   try {
     await serviceBooked.save();
     return res.status(201).send(serviceBooked);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
+// send email for reminder
+router.post("/servicesBooked/email", auth, async (req, res) => {
+  const appoontmantDetial = req.body;
+
+  try {
+    await sendAppointmentMail(appoontmantDetial);
+    return res.status(201).send("email send");
   } catch (e) {
     res.status(400).send(e);
   }

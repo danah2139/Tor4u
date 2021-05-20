@@ -14,6 +14,7 @@ export const StyledLabel = styled.label`
 export const StyledSelect = styled.select`
   overflow: scroll;
   border: 2px solid ${({ theme }) => theme.darkBlue};
+  height: 40px;
   option {
     text-align: center;
   }

@@ -29,4 +29,7 @@ export const StyledColumn = styled.div`
     width: 200px;
     border-radius: 50%;
   }
+  @media (max-width: ${({ theme }) => theme.mobile}) {
+    width: 100%;
+  }
 `;

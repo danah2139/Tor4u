@@ -40,10 +40,11 @@ const ProvidersList = () => {
         key !== "password" &&
         key !== "__v" &&
         key !== "category" &&
-        key !== "avatar"
+        key !== "avatar" &&
+        provider[key].length !== 0
       ) {
         tempArr.push(
-          <div>
+          <div className="item">
             <span className="title">{key} : </span>
             <span>{provider[key]}</span>
           </div>

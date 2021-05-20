@@ -3,5 +3,6 @@ export const theme = {
   lightGray: "#f0f2f5",
   lightBlue: "#7ab7ff",
   red: "#E42645",
-  white: "rgba(255, 255, 255, 0.97)",
+  white: "rgba(255, 255, 255, 0.90)",
+  mobile: "576px",
 };

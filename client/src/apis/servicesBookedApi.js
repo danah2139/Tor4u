@@ -19,6 +19,24 @@ export const createNewServiceBooked = async (serviceBooked) => {
   }
 };
 
+export const sendEmailForServiceBooked = async (serviceBooked) => {
+  try {
+    const token = getLoggedInUserToken();
+    if (!token) {
+      return "please log in";
+    }
+    const res = await API.post("/servicesBooked/email", serviceBooked, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data;
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
 // get receiever ServicesBooked
 export const getUserServiceBooked = async (type) => {
   // console.log(id);

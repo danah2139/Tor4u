@@ -20,6 +20,9 @@ export const StyledContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  @media (max-width: ${({ theme }) => theme.mobile}) {
+    flex-wrap: wrap;
+  }
 `;
 
 export const StyledImg = styled.img``;
@@ -27,11 +30,15 @@ export const StyledImg = styled.img``;
 export const StyledContainerColumn = styled.div`
   display: flex;
   flex-direction: column;
+  padding-bottom: 10px;
   justify-content: space-between;
-  background-color: #183153;
+  background-color: rgba(24, 49, 83, 0.9);
   align-items: center;
-  height: 100%;
+  height: 98.7%;
   width: 20%;
+  @media (max-width: ${({ theme }) => theme.mobile}) {
+    width: 100%;
+  }
 `;
 
 export const StyledText = styled.h2`

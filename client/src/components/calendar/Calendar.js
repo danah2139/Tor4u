@@ -9,6 +9,7 @@ import {
   getAllProviderServiceBooked,
   getUserServiceBooked,
   createNewServiceBooked,
+  sendEmailForServiceBooked,
 } from "../../apis/servicesBookedApi";
 import { getUser, getProvider } from "../../apis/usersApi";
 import { StyledContainer } from "./calendarStyle";
@@ -18,7 +19,8 @@ const Calendar = () => {
   const [providerDetails, setProviderDetails] = useState("");
   const [receiverDetails, setReceiverDetails] = useState("");
   const [events, setEvents] = useState([]);
-  const [showPopup, setShowPopup] = useState(false);
+  const [showPopup, setShowPopup] = useState("");
+  const [message, setMessage] = useState("");
   const ref = useRef();
   const { id } = useParams();
 
@@ -34,15 +36,8 @@ const Calendar = () => {
         let tempArr = userEvents.map((event) => ({
           start: event.start,
           end: event.end,
-          title:
-            event[userDetailsField][nameField] +
-            " " +
-            event.category +
-            " Price: " +
-            event.price +
-            " Phone: " +
-            event[userDetailsField].phone +
-            event[userDetailsField].address,
+          title: ` ${event[userDetailsField][nameField]} - ${event.category} phone number- ${event[userDetailsField].phone} 
+            at ${event[userDetailsField].address} ,cost per half hour ${event.price}`,
         }));
         console.log("tempArr", tempArr);
         let tempEvent = {
@@ -81,6 +76,20 @@ const Calendar = () => {
       }
     })();
   }, []);
+  const handleSendEmail = async () => {
+    const res = await sendEmailForServiceBooked({
+      email: showPopup.receiverDetails.email,
+      name: showPopup.receiverDetails.name,
+      category: showPopup.category,
+      date: showPopup.start,
+      phone: showPopup.providerDetails.phone,
+    });
+    res ? setMessage("email send") : setMessage("email not exist");
+    setTimeout(() => {
+      setErrorMessage("");
+      history.push(`/dashboard`);
+    }, 3000);
+  };
   const handleDateSelect = (selectInfo) => {
     console.log(selectInfo);
     //let title = prompt("Please enter a new title for your event");
@@ -94,13 +103,7 @@ const Calendar = () => {
         calendarApi
           .addEvent({
             //id: createEventId(),
-            title:
-              " " +
-              providerDetails.category +
-              " " +
-              providerDetails.companyName +
-              " " +
-              providerDetails.price,
+            title: `${providerDetails.companyName} - ${providerDetails.category} at ${providerDetails.address} cost ${providerDetails.price} `,
             start: selectInfo.start,
             end: selectInfo.end,
           })
@@ -118,14 +121,9 @@ const Calendar = () => {
     }
   };
 
-  const handleEvents = (events) => {
-    // this.setState({
-    //   currentEvents: events
-    // })
-  };
-
   const handleEventAdd = async (addInfo) => {
     try {
+      console.log(addInfo.event);
       let appointment = {
         provider: id,
         category: providerDetails.category,
@@ -133,6 +131,7 @@ const Calendar = () => {
         start: addInfo.event.start,
         end: addInfo.event.end,
         receiverDetails: {
+          email: receiverDetails.email,
           phone: receiverDetails.phone,
           address: receiverDetails.address,
           name: receiverDetails.name,
@@ -140,7 +139,7 @@ const Calendar = () => {
         providerDetails: {
           phone: providerDetails.phone,
           address: providerDetails.address,
-          comapnyName: providerDetails.comapnyName,
+          companyName: providerDetails.companyName,
         },
       };
       console.log("appotment", appointment);
@@ -148,7 +147,7 @@ const Calendar = () => {
       let response = await createNewServiceBooked(appointment);
       console.log("response", response);
       if (response) {
-        // setShowPopup(true);
+        setShowPopup(appointment);
       }
     } catch (e) {
       console.log(e);
@@ -156,23 +155,10 @@ const Calendar = () => {
     }
   };
   function renderEventContent(eventInfo) {
-    console.log(
-      eventInfo.event._instance.range.start
-        .toString()
-        .match(/[0-9][0-9]:[0-9][0-9]/)[0],
-      eventInfo.event._instance.range.end
-        .toString()
-        .match(/[0-9][0-9]:[0-9][0-9]/)[0]
-    );
+    console.log(eventInfo.event);
     let range = `${
-      eventInfo.event._instance.range.start
-        .toString()
-        .match(/[0-9][0-9]:[0-9][0-9]/)[0]
-    }-${
-      eventInfo.event._instance.range.end
-        .toString()
-        .match(/[0-9][0-9]:[0-9][0-9]/)[0]
-    }`;
+      eventInfo.event.startStr.match(/[0-9][0-9]:[0-9][0-9]/)[0]
+    }-${eventInfo.event.endStr.match(/[0-9][0-9]:[0-9][0-9]/)[0]}`;
     return (
       <>
         <b>{range}</b>
@@ -185,6 +171,7 @@ const Calendar = () => {
       {" "}
       {!showPopup && (
         <FullCalendar
+          timeZone="local"
           ref={ref}
           height="auto"
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -210,7 +197,16 @@ const Calendar = () => {
           // eventRemove={this.handleEventRemove}
         />
       )}
-      {/* {showPopup && <AppointmentDetailPopup />} */}
+      {showPopup && (
+        <AppointmentDetailPopup
+          sendEmail={handleSendEmail}
+          closePopUp={() => {
+            setShowPopup("");
+          }}
+          appointment={showPopup}
+          message={message}
+        />
+      )}
     </StyledContainer>
   );
 };
