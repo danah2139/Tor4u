@@ -22,11 +22,25 @@ const ProfileCard = () => {
 
       tempUserArr.push(<img src={srcLink} alt="img" />);
       for (let key in user) {
+        let title = key === "companyName" ? "company name" : key;
+        let value = user[key];
         if (key !== "_id" && key !== "__v" && user[key] !== []) {
+          if (key === "category") {
+            const catgoryArr = user.category.split(/([A-Z])/);
+            value = catgoryArr[1]
+              ? (
+                  catgoryArr[0] +
+                  " " +
+                  catgoryArr[1] +
+                  catgoryArr[2]
+                ).toLowerrCase()
+              : catgoryArr[0];
+          }
+
           tempUserArr.push(
             <div>
-              <span className="title">{key.toUpperCase()} : </span>
-              <span>{user[key]}</span>
+              <span className="title">{title.toUpperCase()} : </span>
+              <span>{value}</span>
             </div>
           );
         }
