@@ -24,7 +24,12 @@ const ProfileCard = () => {
       for (let key in user) {
         let title = key === "companyName" ? "company name" : key;
         let value = user[key];
-        if (key !== "_id" && key !== "__v" && user[key] !== []) {
+        if (
+          key !== "_id" &&
+          key !== "__v" &&
+          user[key] !== [] &&
+          key !== "avatar"
+        ) {
           if (key === "category") {
             const catgoryArr = user.category.split(/([A-Z])/);
             value = catgoryArr[1]

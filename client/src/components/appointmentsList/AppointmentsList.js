@@ -30,6 +30,9 @@ const AppointmentsList = () => {
       </table>
     );
   };
-  return appointmentsList && <div>Recents Appointments: {renderList()}</div>;
+  return (
+    (appointmentsList && <div>Recents Appointments: {renderList()}</div>) ||
+    null
+  );
 };
 export default AppointmentsList;
