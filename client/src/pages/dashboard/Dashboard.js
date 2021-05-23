@@ -15,30 +15,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserEdit, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Dashboard = () => {
-  const [userType, setUserType] = useState("");
-  const [username, setUsername] = useState("");
-  useEffect(() => {
-    getUserName();
-    setUserType(getUserType());
-  }, []);
+  // const [userType, setUserType] = useState("");
+  // const [username, setUsername] = useState("");
+  // useEffect(() => {
+  //   getUserName();
+  //   setUserType(getUserType());
+  // }, []);
 
-  const getUserName = async () => {
-    if (isUserLoggedIn()) {
-      const userType = await getUserType();
-      if (userType === "provider") {
-        const provider = await getUser(userType);
-        // console.log(provider);
-        setUsername(provider.companyName);
-      } else {
-        const receiver = await getUser(userType);
-        setUsername(receiver.name);
-      }
-    }
-  };
+  // const getUserName = async () => {
+  //   if (isUserLoggedIn()) {
+  //     const userType = await getUserType();
+  //     if (userType === "provider") {
+  //       const provider = await getUser(userType);
+  //       // console.log(provider);
+  //       setUsername(provider.companyName);
+  //     } else {
+  //       const receiver = await getUser(userType);
+  //       setUsername(receiver.name);
+  //     }
+  //   }
+  // };
 
   return (
     <StyledContainer>
-      <StyledContainerColumn>
+      {/* <StyledContainerColumn>
         <StyledText>Logged in as {username}</StyledText>
         <StyledLink to="/profile">
           Update Profile <FontAwesomeIcon icon={faUserEdit} size="1x" />
@@ -53,7 +53,7 @@ const Dashboard = () => {
           </StyledLink>
         )}
         <Logout />
-      </StyledContainerColumn>
+      </StyledContainerColumn> */}
       <ProfileCard />
 
       {/* <StyledImg /> */}

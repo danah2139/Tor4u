@@ -2,13 +2,15 @@ import styled from "styled-components";
 
 export const StyledContainer = styled.div`
   display: flex;
+
   color: ${({ theme }) => theme.lightGray};
   justify-content: center;
   align-items: center;
+  height: 100%;
   // border-radius: 15px;
   padding: 5px 5px;
-  background: #183153;
-  box-shadow: 0 0 1px grey;
+  // background: #183153;
+  // box-shadow: 0 0 1px grey;
 
   & p {
     margin-right: 10px;

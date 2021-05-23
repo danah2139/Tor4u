@@ -12,14 +12,15 @@ const Button = ({
   onClick,
   type = "button",
   value,
-  color = "#139CF7",
+  color = "rgba(255, 255, 255, 0.90)",
+  background = "#139CF7",
 }) => {
   return (
     <StyledButton
       type={type}
       onClick={onClick}
       value={value}
-      theme={{ darkBlue: color }}
+      theme={{ darkBlue: background, white: color }}
     >
       {label.toUpperCase()}
       {value === "SIGN IN" ? (

@@ -19,7 +19,7 @@ const Logout = () => {
       <Button
         label="log out"
         onClick={logoutUser}
-        color="red"
+        background="red"
         value="LOG OUT"
       />
     );

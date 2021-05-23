@@ -13,17 +13,20 @@ export const StyledContainer = styled.div`
 `;
 
 export const StyledHeader = styled.header`
-  background-color: ${({ theme }) => theme.white};
+  background-color: ${({ theme }) => theme.lightGray};
   // border-radius: 15px;
   display: flex;
   align-items: flex-start;
+  height: 10vh;
+
   justify-content: space-between;
-  box-shadow: 0 0 1px grey;
+  box-shadow: 0 10px 10px -10px rgb(0 0 0 / 30%);
   padding: 5px 5px;
 `;
 
 export const StyledH1 = styled.h1`
   color: ${({ theme }) => theme.darkBlue};
+
   letter-spacing: 0.5rem;
   margin: 0;
 `;

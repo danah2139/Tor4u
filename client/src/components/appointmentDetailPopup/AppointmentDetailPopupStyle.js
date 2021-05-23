@@ -24,6 +24,7 @@ export const StyledContainer = styled.div`
     background: white;
     z-index: 1000;
     padding: 10px;
+    border-radius: 15px;
   }
   .buttons-container {
     display: flex;

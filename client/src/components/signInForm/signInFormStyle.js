@@ -8,7 +8,7 @@ export const StyledForm = styled.form`
   padding: 10px 15px;
   background: white;
   border-radius: 15px;
-  max-height: 12rem;
+  max-height: 13rem;
   h3 {
     margin-block-start: 0.5em;
     margin-block-end: 0.5em;

@@ -27,13 +27,15 @@ export const StyledContainer = styled.div`
 
 export const StyledButton = styled.button`
   background: ${({ theme }) => theme.darkBlue};
-  color: white;
+  color: ${({ theme }) => theme.white};
+  // color: ${({ theme }) => theme.white};
   display: flex;
   font-size: 1em;
   // max-width: 120px;
   align-items: center;
   justify-content: space-between;
   margin-right: 10px;
+  height: 3em;
   padding: 0.6em 0.5em;
   border: 2px solid ${({ theme }) => theme.darkBlue};
   border-radius: 5px;

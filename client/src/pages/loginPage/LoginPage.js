@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyledLink, StyledContainer } from "./loginPageStyle";
+import { StyledLink, StyledContainer, StyledWrapper } from "./loginPageStyle";
 import SignInForm from "../../components/signInForm/SignInForm";
 import ProviderSignUpForm from "../../components/signUpForm/ProviderSignUpForm";
 import ReceiverSignUpForm from "../../components/signUpForm/ReceiverSignUpForm";
@@ -20,7 +20,7 @@ const LoginPage = (props) => {
     setUserType(userTypeSelected);
   };
   return (
-    <div>
+    <StyledWrapper>
       <h1>Log in as a {userTypeSelected}</h1>
       <p>
         or change to{" "}
@@ -34,7 +34,7 @@ const LoginPage = (props) => {
           <ReceiverSignUpForm />
         )}
       </StyledContainer>
-    </div>
+    </StyledWrapper>
   );
 };
 export default LoginPage;

@@ -13,15 +13,23 @@ export const StyledLink = styled(Link)`
     border-radius: 3px;
   }
 `;
+export const StyledText = styled.h2`
+  color: white;
+  padding: 10px;
+  margin: 10px 0;
+`;
+
 export const StyledContainer = styled.div`
   display: flex;
+  background: ${({ theme }) => theme.lightGray};
+
   // flex-direction: column;
   // justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 100%;
   @media (max-width: ${({ theme }) => theme.mobile}) {
-    flex-wrap: wrap;
+    // flex-wrap: wrap;
   }
 `;
 
@@ -39,10 +47,4 @@ export const StyledContainerColumn = styled.div`
   @media (max-width: ${({ theme }) => theme.mobile}) {
     width: 100%;
   }
-`;
-
-export const StyledText = styled.h2`
-  color: white;
-  padding: 10px;
-  margin: 10px 0;
 `;

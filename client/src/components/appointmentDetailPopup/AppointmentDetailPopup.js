@@ -43,7 +43,12 @@ const AppointmentDetailPopup = ({
         <div className="buttons-container">
           {" "}
           <Button onClick={sendEmail} label="Send Mail" />
-          <Button onClick={closePopUp} label="Close" />
+          <Button
+            onClick={closePopUp}
+            label="Close"
+            background="rgba(255, 255, 255, 0.90)"
+            color="#139CF7"
+          />
         </div>
       </div>
       {message ? <StyledMessage>{message}</StyledMessage> : null}

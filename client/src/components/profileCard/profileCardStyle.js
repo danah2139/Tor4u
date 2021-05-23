@@ -13,6 +13,7 @@ export const StyledContainer = styled.div`
 export const StyledColumn = styled.div`
   display: flex;
   flex-direction: column;
+  border-radius: 15px;
   justify-content: space-between;
   box-shadow: 0 0 1px grey;
   padding: 10px;
@@ -20,7 +21,7 @@ export const StyledColumn = styled.div`
   font-size: 1.2em;
   align-items: center;
   width: 50%;
-  height: 95%;
+  height: 100%;
   .title {
     font-weight: 700;
   }
