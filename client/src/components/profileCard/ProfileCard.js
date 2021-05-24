@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUserType } from "../../apis/auth";
 import { getUser } from "../../apis/usersApi";
-import AppointmentsList from "../appointmentsList/AppointmentsList";
 import { StyledColumn, StyledContainer } from "./profileCardStyle";
 const ProfileCard = () => {
   const [user, setUser] = useState("");
@@ -58,7 +57,6 @@ const ProfileCard = () => {
   return (
     <StyledContainer>
       <StyledColumn>{renderUser()}</StyledColumn>
-      <AppointmentsList />
     </StyledContainer>
   );
 };

@@ -5,6 +5,7 @@ import {
   StyledContainerColumn,
   StyledHeader,
   StyledListItem,
+  StyledWrapper,
   StyledWarning,
 } from "./providersListStyle";
 import { getAllUsers } from "../../apis/usersApi";
@@ -79,21 +80,23 @@ const ProvidersList = () => {
   };
 
   return (
-    <StyledContainerColumn>
-      <StyledHeader>Providers</StyledHeader>
-      <Select
-        label="Catagories:"
-        onChange={(value) => setSelectedCategory(value)}
-      />
-      {/* <Button
+    <StyledWrapper>
+      <StyledContainerColumn>
+        <StyledHeader>Providers</StyledHeader>
+        <Select
+          label="Catagories:"
+          onChange={(value) => setSelectedCategory(value)}
+        />
+        {/* <Button
         label={showAddNew ? "Close" : "Add"}
         onClick={() => setShowAddNew(!showAddNew)}
       /> */}
-      {/* {showAddNew ? <AddNewprovider handleSubmit={handleSubmit} /> : null}
+        {/* {showAddNew ? <AddNewprovider handleSubmit={handleSubmit} /> : null}
       {warning ? <StyledWarning>{warning}</StyledWarning> : null} */}
 
-      <ul>{renderList()}</ul>
-    </StyledContainerColumn>
+        <ul>{renderList()}</ul>
+      </StyledContainerColumn>
+    </StyledWrapper>
   );
 };
 export default ProvidersList;

@@ -1,13 +1,18 @@
 import styled from "styled-components";
 
 export const StyledContainer = styled.div`
-  color: ${({ theme }) => theme.darkBlue};
+  // color: ${({ theme }) => theme.darkBlue};
   border-radius: 15px;
   background-color: ${({ theme }) => theme.white};
-  padding: 5px;
+  padding: 15px;
+  height: 60%;
+
   box-shadow: 0 0 1px grey;
-  height: 100%;
+  h2 {
+    color: ${({ theme }) => theme.darkBlue};
+  }
   table {
     border: transparent;
+    height: 80%;
   }
 `;

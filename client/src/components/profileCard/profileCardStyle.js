@@ -2,11 +2,10 @@ import styled from "styled-components";
 
 export const StyledContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
   padding: 10px;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  width: 80%;
+  width: 100%;
   height: 100%;
 `;
 
@@ -14,16 +13,17 @@ export const StyledColumn = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 15px;
-  justify-content: space-between;
+  justify-content: space-around;
   box-shadow: 0 0 1px grey;
   padding: 10px;
   background-color: ${({ theme }) => theme.white};
   font-size: 1.2em;
   align-items: center;
-  width: 50%;
+  min-width: 20em;
   height: 100%;
   .title {
     font-weight: 700;
+    color: ${({ theme }) => theme.darkBlue};
   }
   img {
     height: 200px;

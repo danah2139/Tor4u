@@ -16,17 +16,20 @@ const Header = () => {
   // const { push } = useHistory();
   useEffect(() => {
     (async () => {
-      (await isUserLoggedIn()) ? setPath("/dashboard") : setPath("/");
+      let flag = await isUserLoggedIn();
+      flag ? setPath("/dashboard") : setPath("/");
     })();
-  }, []);
+  }, [path]);
   return (
     <StyledHeader>
-      {/* <div ref={node}>
-        <FocusLock disabled={!isOpen}>
-          <Burger open={isOpen} setOpen={setIsOpen} aria-controls={menuId} />
-          <NavBar open={isOpen} setOpen={setIsOpen} id={menuId} />
-        </FocusLock>
-      </div> */}
+      {path === "/dashboard" && (
+        <div ref={node}>
+          <FocusLock disabled={!isOpen}>
+            <Burger open={isOpen} setOpen={setIsOpen} aria-controls={menuId} />
+            <NavBar open={isOpen} setOpen={setIsOpen} id={menuId} />
+          </FocusLock>
+        </div>
+      )}
       <StyledLink to={path}>
         <StyledH1>Tor4U</StyledH1>
       </StyledLink>

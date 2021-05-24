@@ -5,7 +5,11 @@ import { getUserType } from "../../apis/auth";
 import { isUserLoggedIn, getUser } from "../../apis/usersApi";
 import Logout from "../logout/Logout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserEdit, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserEdit,
+  faCalendarAlt,
+  faColumns,
+} from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = ({ open, setOpen, ...props }) => {
   const isHidden = open ? true : false;
@@ -35,18 +39,21 @@ const NavBar = ({ open, setOpen, ...props }) => {
   return (
     <StyledMenu open={open} aria-hidden={!isHidden} {...props}>
       <StyledText>Logged in as {username}</StyledText>
-      <StyledLink to="/profile">
+      <StyledLink to="/profile" onClick={() => setOpen(!open)}>
         Update Profile <FontAwesomeIcon icon={faUserEdit} size="1x" />
       </StyledLink>
       {userType === "provider" ? (
-        <StyledLink to="/calendar">
+        <StyledLink to="/calendar" onClick={() => setOpen(!open)}>
           Show My Schedule <FontAwesomeIcon icon={faCalendarAlt} size="1x" />
         </StyledLink>
       ) : (
-        <StyledLink to="/ProvidersList">
+        <StyledLink to="/ProvidersList" onClick={() => setOpen(!open)}>
           Schedule Service <FontAwesomeIcon icon={faCalendarAlt} size="1x" />
         </StyledLink>
       )}
+      <StyledLink to="/dashboard" onClick={() => setOpen(!open)}>
+        Dashboard <FontAwesomeIcon icon={faColumns} size="1x" />
+      </StyledLink>
       <Logout />
     </StyledMenu>
   );

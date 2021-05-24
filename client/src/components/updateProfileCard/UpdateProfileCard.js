@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { StyledForm } from "./updateProfileCardStyle";
+import { StyledForm, StyledWrapper } from "./updateProfileCardStyle";
 import { getUserType } from "../../apis/auth";
 import { updateUser, getUser } from "../../apis/usersApi";
 
@@ -69,83 +69,85 @@ const UpdateProfileCard = () => {
     }
   };
   return (
-    type &&
-    (provider || receiver) && (
-      <StyledForm onSubmit={handleSubmit}>
-        <h3>Update Profile</h3>
-        {type === "provider" ? (
+    <StyledWrapper>
+      {" "}
+      {type && (provider || receiver) && (
+        <StyledForm onSubmit={handleSubmit}>
+          <h2>Update Profile</h2>
+          {type === "provider" ? (
+            <Input
+              required
+              label="Company Name:"
+              name="companyName"
+              onChange={(e) => {
+                setProvider({ ...provider, [e.target.name]: e.target.value });
+              }}
+              value={provider["companyName"]}
+            />
+          ) : (
+            <Input
+              required
+              label="Name:"
+              name="name"
+              onChange={handleChange}
+              value={receiver["name"]}
+            />
+          )}
           <Input
             required
-            label="Company Name:"
-            name="companyName"
-            onChange={(e) => {
-              setProvider({ ...provider, [e.target.name]: e.target.value });
-            }}
-            value={provider["companyName"]}
-          />
-        ) : (
-          <Input
-            required
-            label="Name:"
-            name="name"
+            label="Email:"
+            name="email"
             onChange={handleChange}
-            value={receiver["name"]}
+            value={type === "provider" ? provider["email"] : receiver["email"]}
           />
-        )}
-        <Input
-          required
-          label="Email:"
-          name="email"
-          onChange={handleChange}
-          value={type === "provider" ? provider["email"] : receiver["email"]}
-        />
-        <Input
-          required
-          label="Phone:"
-          name="phone"
-          onChange={handleChange}
-          value={type === "provider" ? provider["phone"] : receiver["phone"]}
-        />
-        <Input
-          required
-          label="Address:"
-          name="address"
-          onChange={handleChange}
-          value={
-            type === "provider" ? provider["address"] : receiver["address"]
-          }
-        />
-
-        <Input
-          label="Upload Image: "
-          name="avatar"
-          type="file"
-          onChange={handleChange}
-        />
-
-        {type === "provider" && (
-          <Select
-            label="Category:"
-            value={provider["category"]}
-            onChange={(catagory) => {
-              setProvider({ ...provider, ["category"]: catagory });
-            }}
-          />
-        )}
-        {type === "provider" && (
           <Input
             required
-            label="Price:"
-            name="price"
-            onChange={(e) => {
-              setProvider({ ...provider, [e.target.name]: e.target.value });
-            }}
-            value={provider["price"]}
+            label="Phone:"
+            name="phone"
+            onChange={handleChange}
+            value={type === "provider" ? provider["phone"] : receiver["phone"]}
           />
-        )}
-        <Button type="submit" label="Update" value="Update" />
-      </StyledForm>
-    )
+          <Input
+            required
+            label="Address:"
+            name="address"
+            onChange={handleChange}
+            value={
+              type === "provider" ? provider["address"] : receiver["address"]
+            }
+          />
+
+          <Input
+            label="Upload Image: "
+            name="avatar"
+            type="file"
+            onChange={handleChange}
+          />
+
+          {type === "provider" && (
+            <Select
+              label="Category:"
+              value={provider["category"]}
+              onChange={(catagory) => {
+                setProvider({ ...provider, ["category"]: catagory });
+              }}
+            />
+          )}
+          {type === "provider" && (
+            <Input
+              required
+              label="Price:"
+              name="price"
+              onChange={(e) => {
+                setProvider({ ...provider, [e.target.name]: e.target.value });
+              }}
+              value={provider["price"]}
+            />
+          )}
+          <Button type="submit" label="Update" value="Update" />
+        </StyledForm>
+      )}
+    </StyledWrapper>
   );
 };
 export default UpdateProfileCard;

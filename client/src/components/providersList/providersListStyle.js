@@ -1,5 +1,10 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+export const StyledWrapper = styled.div`
+  background: ${({ theme }) => theme.lightGray};
+  background: #f0f2f5;
+  height: 100%;
+`;
 
 export const StyledWarning = styled.div`
   color: white;

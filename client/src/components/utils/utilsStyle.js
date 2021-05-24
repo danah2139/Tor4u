@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const StyledInput = styled.input`
   margin-bottom: 7px;
+  height: 2em;
 `;
 export const StyledLabel = styled.label`
   margin-bottom: 5px;
@@ -9,6 +10,9 @@ export const StyledLabel = styled.label`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  svg {
+    margin: 10px;
+  }
 `;
 
 export const StyledSelect = styled.select`
@@ -31,7 +35,7 @@ export const StyledButton = styled.button`
   // color: ${({ theme }) => theme.white};
   display: flex;
   font-size: 1em;
-  // max-width: 120px;
+  max-width: 150px;
   align-items: center;
   justify-content: space-between;
   margin-right: 10px;
