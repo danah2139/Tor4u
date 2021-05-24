@@ -6,6 +6,7 @@ export const StyledContainer = styled.div`
   background-color: ${({ theme }) => theme.white};
   padding: 15px;
   height: 60%;
+  width: 100%;
 
   box-shadow: 0 0 1px grey;
   h2 {
@@ -14,5 +15,6 @@ export const StyledContainer = styled.div`
   table {
     border: transparent;
     height: 80%;
+    width: 100%;
   }
 `;

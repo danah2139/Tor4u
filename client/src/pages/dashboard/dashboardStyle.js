@@ -9,32 +9,27 @@ export const StyledContainer = styled.div`
   display: flex;
   background: ${({ theme }) => theme.lightGray};
   align-items: center;
-  & .main-container {
-    height: 100%;
-    border: 5px solid black;
-  }
-  & .flex-column {
-    flex-direction: column;
-  }
-  @media (max-width: ${({ theme }) => theme.mobile}) {
-    // flex-wrap: wrap;
-  }
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  // @media (max-width: ${({ theme }) => theme.mobile}) {
+  //   // flex-wrap: wrap;
+  // }
 `;
 
 export const StyledImg = styled.img`
   display: block;
   height: 40%;
+  width: 100%;
 `;
 
 export const StyledContainerColumn = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: 10px;
-  justify-content: space-between;
-  background-color: rgba(24, 49, 83, 0.9);
   align-items: center;
   height: 100%;
-  // width: 20%;
+
   @media (max-width: ${({ theme }) => theme.mobile}) {
     width: 100%;
   }

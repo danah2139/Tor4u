@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { getUserServiceBooked } from "../../apis/servicesBookedApi";
 import { getUserType } from "../../apis/auth";
 import { StyledContainer } from "./appointmentsTableStyle";
-import { useTable, useSortBy } from "react-table";
 
 const AppointmentsTable = () => {
   const [appointmentsTable, setAppointmentsTable] = useState([]);
