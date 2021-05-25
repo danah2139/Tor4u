@@ -13,9 +13,12 @@ export const StyledContainer = styled.div`
   width: 100%;
   height: 100%;
   padding: 15px;
-  // @media (max-width: ${({ theme }) => theme.mobile}) {
-  //   // flex-wrap: wrap;
-  // }
+  @media (max-width: ${({ theme }) => theme.mobile}) {
+    flex-direction: column;
+    background: ${({ theme }) => theme.lightGray};
+    overflow: auto;
+    height: 100%;
+  }
 `;
 
 export const StyledImg = styled.img`

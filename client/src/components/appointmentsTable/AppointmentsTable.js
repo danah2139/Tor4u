@@ -53,7 +53,7 @@ const AppointmentsTable = () => {
       <table>
         {" "}
         <thead>
-          <th>Name</th>
+          <th>Company Name</th>
           <th>Category</th>
           <th>Date</th>
           <th>Duration</th>

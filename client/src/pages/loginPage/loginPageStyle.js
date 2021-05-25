@@ -10,7 +10,7 @@ export const StyledContainer = styled.div`
   display: flex;
   justify-content: space-between;
   background: #f0f2f5;
-  padding: 2em;
+  // padding: 2em;
   flex-wrap: wrap;
 
   // align-items: center;

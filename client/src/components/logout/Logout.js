@@ -4,10 +4,11 @@ import { logout } from "../../apis/usersApi";
 import { getUserType } from "../../apis/auth";
 import Button from "../utils/Button";
 
-const Logout = () => {
+const Logout = ({ handleClick }) => {
   const history = useHistory();
 
   const logoutUser = async () => {
+    handleClick();
     let type = await getUserType();
     await logout(type);
 

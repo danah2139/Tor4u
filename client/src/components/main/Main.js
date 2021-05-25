@@ -13,9 +13,7 @@ const Main = () => {
   //const [userType, setUserType] = useState("Provider");
   return (
     <main>
-      {/* {isUserLoggedIn() ? (
-        <Redirect push exact to={`/${userType}/dashboard`} />
-      ) : null} */}
+      {/* {isUserLoggedIn() ? <Redirect push exact to={`/dashboard`} /> : null} */}
       <Route exact path="/" render={(props) => <LandingPage {...props} />} />
       <Route exact path="/login" render={(props) => <LoginPage {...props} />} />
 

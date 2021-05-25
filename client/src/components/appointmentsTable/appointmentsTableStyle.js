@@ -17,4 +17,13 @@ export const StyledContainer = styled.div`
     height: 80%;
     width: 100%;
   }
+  @media (max-width: ${({ theme }) => theme.mobile}) {
+    h2 {
+      margin: 0;
+      font-size: 1.2em;
+    }
+    table {
+      height: 0;
+    }
+  }
 `;

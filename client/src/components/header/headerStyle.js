@@ -16,7 +16,7 @@ export const StyledHeader = styled.header`
   background-color: ${({ theme }) => theme.lightGray};
   // border-radius: 15px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   height: 10vh;
 
   justify-content: space-between;

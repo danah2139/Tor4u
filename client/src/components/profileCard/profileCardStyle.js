@@ -32,5 +32,6 @@ export const StyledColumn = styled.div`
   }
   @media (max-width: ${({ theme }) => theme.mobile}) {
     width: 100%;
+    min-height: 20em;
   }
 `;

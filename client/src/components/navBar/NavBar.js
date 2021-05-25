@@ -14,7 +14,6 @@ import {
 const NavBar = ({ open, setOpen, ...props }) => {
   const isHidden = open ? true : false;
   const tabIndex = isHidden ? 0 : -1;
-  console.log(isHidden);
   const [userType, setUserType] = useState("");
   const [username, setUsername] = useState("");
   useEffect(() => {
@@ -54,7 +53,7 @@ const NavBar = ({ open, setOpen, ...props }) => {
       <StyledLink to="/dashboard" onClick={() => setOpen(!open)}>
         Dashboard <FontAwesomeIcon icon={faColumns} size="1x" />
       </StyledLink>
-      <Logout />
+      <Logout handleClick={() => setOpen(!open)} />
     </StyledMenu>
   );
 };
