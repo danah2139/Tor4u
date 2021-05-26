@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { createNewUser } from "../../apis/usersApi";
-import { StyledForm } from "./signUpFormStyle";
+import { StyledForm, StyledError } from "./signUpFormStyle";
 import Button from "../utils/Button";
 import Input from "../utils/Input";
 
@@ -12,11 +12,19 @@ const ReceiverSignUpForm = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
+  const [errorMessege, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await createNewUser({ name, email, phone, password, address }, "receiver");
-    history.push(`/dashboard`);
+    let res = await createNewUser(
+      { name, email, phone, password, address },
+      "receiver"
+    );
+    console.log(res.data);
+    res._id ? history.push(`/dashboard`) : setErrorMessage(res.data.message);
+    setTimeout(() => {
+      setErrorMessage("");
+    }, 3000);
   };
 
   return (
@@ -69,6 +77,7 @@ const ReceiverSignUpForm = () => {
       />
 
       <Button type="submit" label="Sign Up" value="SIGN UP" />
+      {errorMessege ? <StyledError>{errorMessege}</StyledError> : null}
     </StyledForm>
   );
 };

@@ -2,7 +2,10 @@ const express = require("express");
 const ServiceBooked = require("../models/serviceBooked");
 const auth = require("../middleware/auth");
 const router = new express.Router();
-const { sendAppointmentMail } = require("../emails/appointment");
+const {
+  sendAppointmentMail,
+  sendCancelAppointmentMail,
+} = require("../emails/appointment");
 
 // create a new serviceBooked
 router.post("/servicesBooked", auth, async (req, res) => {
@@ -119,8 +122,10 @@ router.delete("/servicesBooked/:id", auth, async (req, res) => {
   try {
     const serviceBooked = await ServiceBooked.findOneAndDelete({
       _id: req.params.id,
-      receiver: req.receiver._id,
+      provider: req.receiver._id,
     });
+    const appointmentDetial = req.body;
+    const result = await sendCancelAppointmentMail(appointmentDetial);
 
     if (!serviceBooked) {
       res.status(404).send();

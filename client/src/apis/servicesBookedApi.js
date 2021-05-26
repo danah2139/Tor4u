@@ -99,7 +99,7 @@ export const getServiceBooked = async (serviceBookedId) => {
   }
 };
 
-export const deleteServiceBooked = async (serviceBookedId) => {
+export const deleteServiceBooked = async (serviceBooked) => {
   // console.log(serviceBookedId);
   try {
     const token = getLoggedInUserToken();
@@ -107,7 +107,7 @@ export const deleteServiceBooked = async (serviceBookedId) => {
       return "please log in";
     }
     // console.log(token);
-    const res = await API.delete(`/servicesBooked/${serviceBookedId}`, {
+    const res = await API.delete(`/servicesBooked/${serviceBooked._id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

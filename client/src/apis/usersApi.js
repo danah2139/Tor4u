@@ -11,9 +11,10 @@ export const createNewUser = async (user, type) => {
     const res = await API.post(`/${type}s/signup`, user);
     setUserToken(res.data.token, type);
     // console.log(res.data[type]._id);
-    return res.data[type]._id;
+    return res.data[type];
   } catch (e) {
     console.log(e.response);
+    return e.response;
   }
 };
 

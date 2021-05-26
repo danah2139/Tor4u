@@ -73,7 +73,7 @@ const UpdateProfileCard = () => {
       {" "}
       {type && (provider || receiver) && (
         <StyledForm onSubmit={handleSubmit}>
-          <h2>Update Profile</h2>
+          <h3>Update Profile</h3>
           {type === "provider" ? (
             <Input
               required

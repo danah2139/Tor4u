@@ -10,9 +10,9 @@ export const StyledForm = styled.form`
   justify-content: space-between;
   margin: 0 auto;
   align-items: center;
-  padding: 2em 5em;
+  padding: 1em 5em;
   background: ${({ theme }) => theme.lightGray};
-  border-radius: 15px;
+  // border-radius: 15px;
   justify-content: space-between;
 
   h3 {

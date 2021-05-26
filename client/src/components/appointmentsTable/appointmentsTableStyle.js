@@ -5,7 +5,7 @@ export const StyledContainer = styled.div`
   border-radius: 15px;
   background-color: ${({ theme }) => theme.white};
   padding: 15px;
-  height: 60%;
+  height: 100%;
   width: 100%;
 
   box-shadow: 0 0 1px grey;

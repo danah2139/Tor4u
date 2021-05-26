@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { createNewUser } from "../../apis/usersApi";
-import { StyledForm } from "./signUpFormStyle";
+import { StyledForm, StyledError } from "./signUpFormStyle";
 import Button from "../utils/Button";
 import Input from "../utils/Input";
 import Select from "../utils/Select";
@@ -13,17 +13,19 @@ const ProviderSignUpForm = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
-  // const [category, setCategory] = useState("");
-  // const [price, setPrice] = useState("");
-  // const [detailService, setDetailService] = useState([]);
+  const [errorMessege, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await createNewUser(
+
+    let res = await createNewUser(
       { companyName, email, phone, password, address },
       "provider"
     );
-    history.push(`/dashboard`);
+    res._id ? history.push(`/dashboard`) : setErrorMessage(res.data.message);
+    setTimeout(() => {
+      setErrorMessage("");
+    }, 5000);
   };
 
   return (
@@ -74,32 +76,9 @@ const ProviderSignUpForm = () => {
         }}
         value={password}
       />
-      {/* <Select
-        label="Category:"
-        name="category"
-        onChange={(e) => {
-          setCategory(e.target.value);
-        }}
-      />
-      <Input
-        required
-        label="Price:"
-        name="price"
-        onChange={(e) => {
-          setPrice(e.target.value);
-        }}
-        value={price}
-      />
-
-      <button
-        onClick={() => {
-          setDetailService([...detailService, { category, price }]);
-        }}
-      >
-        Add
-      </button> */}
 
       <Button type="submit" label="Sign Up" value="SIGN UP" />
+      {errorMessege ? <StyledError>{errorMessege}</StyledError> : null}
     </StyledForm>
   );
 };

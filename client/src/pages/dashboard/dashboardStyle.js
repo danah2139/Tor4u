@@ -15,6 +15,7 @@ export const StyledContainer = styled.div`
   padding: 15px;
   @media (max-width: ${({ theme }) => theme.mobile}) {
     flex-direction: column;
+    justify-content: space-between;
     background: ${({ theme }) => theme.lightGray};
     overflow: auto;
     height: 100%;
