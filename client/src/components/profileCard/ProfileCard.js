@@ -31,13 +31,14 @@ const ProfileCard = () => {
         ) {
           if (key === "category") {
             const catgoryArr = user.category.split(/([A-Z])/);
+            console.log(catgoryArr);
             value = catgoryArr[1]
               ? (
                   catgoryArr[0] +
                   " " +
                   catgoryArr[1] +
                   catgoryArr[2]
-                ).toLowerrCase()
+                ).toLowerCase()
               : catgoryArr[0];
           }
 
