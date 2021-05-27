@@ -71,6 +71,7 @@ const ProviderSignUpForm = () => {
         required
         label="Password:"
         name="password"
+        type="password"
         onChange={(e) => {
           setPassword(e.target.value);
         }}
