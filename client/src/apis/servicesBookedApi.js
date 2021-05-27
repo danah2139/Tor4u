@@ -40,13 +40,21 @@ export const sendEmailForServiceBooked = async (serviceBooked) => {
 
 // get receiever ServicesBooked
 export const getUserServiceBooked = async (type) => {
-  // console.log(id);
+  console.log(type);
   try {
     const token = getLoggedInUserToken();
     if (!token) {
       return "please log in";
     }
     // console.log(token);
+    if (type === "provider") {
+      const res = await API.get(`/test`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return res.data;
+    }
     const res = await API.get(`/${type}s/servicesBooked`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -55,7 +63,7 @@ export const getUserServiceBooked = async (type) => {
     // console.log(res.data);
     return res.data;
   } catch (e) {
-    console.log(e);
+    console.log(e.response);
   }
 };
 

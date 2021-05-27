@@ -13,7 +13,7 @@ router.post("/servicesBooked", auth, async (req, res) => {
     ...req.body,
     receiver: req.receiver._id,
   });
-  console.log("serviceBooked", serviceBooked);
+  //console.log("serviceBooked", serviceBooked);
 
   try {
     await serviceBooked.save();
@@ -26,7 +26,7 @@ router.post("/servicesBooked", auth, async (req, res) => {
 // send email for reminder
 router.post("/servicesBooked/email", auth, async (req, res) => {
   const appointmentDetial = req.body;
-  console.log("appoontmantDetial ", appointmentDetial);
+  //console.log("appoontmantDetial ", appointmentDetial);
   try {
     const result = await sendAppointmentMail(appointmentDetial);
     return res.send(result);
@@ -35,12 +35,13 @@ router.post("/servicesBooked/email", auth, async (req, res) => {
   }
 });
 
-router.get("/receivers/servicesBooked", auth, async (req, res) => {
+router.get("/test", auth, async (req, res) => {
+  console.log("test");
   try {
-    await req.receiver.populate("servicesBooked").execPopulate();
-    res.send(req.receiver.servicesBooked);
+    await req.provider.populate("servicesBooked").execPopulate();
+    res.send(req.provider.servicesBooked);
   } catch (e) {
-    res.status(500).send();
+    res.status(500).send(e.message);
   }
 });
 
@@ -49,9 +50,29 @@ router.get("/providers/servicesBooked", auth, async (req, res) => {
     await req.provider.populate("servicesBooked").execPopulate();
     res.send(req.provider.servicesBooked);
   } catch (e) {
-    res.status(500).send();
+    res.status(500).send(e.message);
   }
 });
+
+router.get("/receivers/servicesBooked", auth, async (req, res) => {
+  try {
+    await req.receiver.populate("servicesBooked").execPopulate();
+    res.send(req.receiver.servicesBooked);
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
+});
+
+// router.get("/providers/servicesBooked", auth, async (req, res) => {
+//   try {
+//     console.log(req);
+//     //await req.provider.populate("servicesBooked").execPopulate();
+//     //console.log("provider app", req.provider.servicesBooked);
+//     //res.send(req.provider.servicesBooked);
+//   } catch (e) {
+//     res.status(500).send(e.message);
+//   }
+// });
 
 router.get("/servicesBooked/provider/:id", auth, async (req, res) => {
   try {

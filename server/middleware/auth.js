@@ -5,6 +5,7 @@ const Receiver = require("../models/receiver");
 const auth = async (req, res, next) => {
   try {
     const token = req.header("Authorization").replace("Bearer ", "");
+    console.log("test auth", token);
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const provider = await Provider.findOne({
       _id: decoded._id,
@@ -15,7 +16,7 @@ const auth = async (req, res, next) => {
       "tokens.token": token,
     });
 
-    //console.log("rec", decoded, receiver);
+    console.log("rec", decoded);
 
     if (provider) {
       req.provider = provider;
