@@ -8,12 +8,13 @@ import { useParams, useHistory } from "react-router";
 import {
   getAllProviderServiceBooked,
   getUserServiceBooked,
-  createNewServiceBooked,
-  sendEmailForServiceBooked,
 } from "../../apis/servicesBookedApi";
+import handleSendEmail from "./handleSendEmail";
+import handleAddAppointamnet from "./handleAddAppointamnet";
 import { getUser, getProvider } from "../../apis/usersApi";
 import { StyledContainer } from "./calendarStyle";
 import AppointmentDetailPopup from "../appointmentDetailPopup/AppointmentDetailPopup";
+
 const Calendar = () => {
   const [providerDetails, setProviderDetails] = useState("");
   const [receiverDetails, setReceiverDetails] = useState("");
@@ -23,6 +24,29 @@ const Calendar = () => {
   const ref = useRef();
   const { id } = useParams();
   const history = useHistory();
+
+  const getAllProvidersAppointments = async (id) => {
+    let provider = await getProvider(id);
+    setProviderDetails(provider);
+    let receiver = await getUser("receiver");
+    setReceiverDetails(receiver);
+
+    let providersEvents = await getAllProviderServiceBooked(id);
+    let tempArr = providersEvents.map((event) => ({
+      start: event.start,
+      end: event.end,
+      title: "Not Available",
+    }));
+    let tempEvent = {
+      events: tempArr,
+      color: "#E42645",
+      textColor: "white",
+    };
+    setEvents((prevState) => {
+      return [...prevState, tempEvent];
+    });
+  };
+
   useEffect(() => {
     (async () => {
       const type = await getUserType();
@@ -37,64 +61,31 @@ const Calendar = () => {
           title: ` ${event[userDetailsField][nameField]} - ${event.category} phone number- ${event[userDetailsField].phone} 
             at ${event[userDetailsField].address} ,cost per half hour ${event.price}`,
         }));
-        console.log("tempArr", tempArr);
         let tempEvent = {
           events: tempArr,
           color: "#7ab7ff",
           textColor: "black",
         };
-        console.log(tempEvent);
-
-        // receiver : name address phone
-        // provider : comnpanyName address phone
         setEvents([tempEvent]);
 
         if (id) {
-          let provider = await getProvider(id);
-          setProviderDetails(provider);
-          let receiver = await getUser("receiver");
-          setReceiverDetails(receiver);
-          let providersEvents = await getAllProviderServiceBooked(id);
-          let tempArr = providersEvents.map((event) => ({
-            start: event.start,
-            end: event.end,
-            title: " Not Available",
-          }));
-          tempEvent = {
-            events: tempArr,
-            color: "#E42645",
-            textColor: "white",
-          };
-          setEvents((prevState) => {
-            console.log([...prevState, tempEvent]);
-            return [...prevState, tempEvent];
-          });
-          console.log("events", events);
+          await getAllProvidersAppointments(id);
         }
       }
     })();
   }, []);
-  const handleSendEmail = async () => {
-    const res = await sendEmailForServiceBooked({
-      email: showPopup.receiverDetails.email,
-      name: showPopup.receiverDetails.name,
-      category: showPopup.category,
-      date: showPopup.start,
-      phone: showPopup.providerDetails.phone,
-    });
-    res ? setMessage("email send") : setMessage("email not exist");
-    setTimeout(() => {
-      setMessage("");
-      history.push(`/dashboard`);
-    }, 3000);
+
+  const handleEventAdd = (addInfo) => {
+    handleAddAppointamnet(
+      addInfo,
+      setShowPopup,
+      providerDetails,
+      receiverDetails,
+      id
+    );
   };
   const handleDateSelect = (selectInfo) => {
-    console.log(selectInfo);
-    //let title = prompt("Please enter a new title for your event");
-    console.log(selectInfo.view);
-
     let calendarApi = selectInfo.view.calendar;
-
     calendarApi.unselect(); // clear date selection
     if (providerDetails && receiverDetails) {
       if (selectInfo.view.type !== "dayGridMonth") {
@@ -109,51 +100,8 @@ const Calendar = () => {
       }
     }
   };
-  // const handleEventClick = (clickInfo) => {
-  //   if (
-  //     window.confirm(
-  //       `Are you sure you want to delete the event '${clickInfo.event.title}'`
-  //     )
-  //   ) {
-  //     clickInfo.event.remove();
-  //   }
-  // };
 
-  const handleEventAdd = async (addInfo) => {
-    try {
-      console.log(addInfo.event);
-      let appointment = {
-        provider: id,
-        category: providerDetails.category,
-        price: providerDetails.price,
-        start: addInfo.event.start,
-        end: addInfo.event.end,
-        receiverDetails: {
-          email: receiverDetails.email,
-          phone: receiverDetails.phone,
-          address: receiverDetails.address,
-          name: receiverDetails.name,
-        },
-        providerDetails: {
-          phone: providerDetails.phone,
-          address: providerDetails.address,
-          companyName: providerDetails.companyName,
-        },
-      };
-      console.log("appotment", appointment);
-
-      let response = await createNewServiceBooked(appointment);
-      console.log("response", response);
-      if (response) {
-        setShowPopup(appointment);
-      }
-    } catch (e) {
-      console.log(e);
-      addInfo.revert();
-    }
-  };
   function renderEventContent(eventInfo) {
-    // console.log(eventInfo.event);
     let range = `${
       eventInfo.event.startStr.match(/[0-9][0-9]:[0-9][0-9]/)[0]
     }-${eventInfo.event.endStr.match(/[0-9][0-9]:[0-9][0-9]/)[0]}`;
@@ -191,13 +139,13 @@ const Calendar = () => {
           eventContent={renderEventContent} // custom render function
           // eventClick={handleEventClick}
           eventAdd={handleEventAdd}
-          // eventChange={this.handleEventChange} // called for drag-n-drop/resize
-          // eventRemove={this.handleEventRemove}
+          // eventChange={handleEventChange} // called for drag-n-drop/resize
+          // eventRemove={handleEventRemove}
         />
       )}
       {showPopup && (
         <AppointmentDetailPopup
-          sendEmail={handleSendEmail}
+          sendEmail={handleSendEmail(showPopup, setMessage, history)}
           closePopUp={() => {
             setShowPopup("");
           }}

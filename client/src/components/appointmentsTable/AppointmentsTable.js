@@ -31,7 +31,7 @@ const AppointmentsTable = () => {
                 ).toLowerCase()
               : catgoryArr[0].toLowerCase()}
           </td>
-          <td>{` ${day.replace("-", "")}/${month.replace(
+          <td>{`${day.replace("-", "")}/${month.replace(
             "-",
             ""
           )} at ${hour}`}</td>
@@ -51,12 +51,13 @@ const AppointmentsTable = () => {
     console.log(sortedAppointments, index);
     return (
       <table>
-        {" "}
         <thead>
-          <th>Company Name</th>
-          <th>Category</th>
-          <th>Date</th>
-          <th>Duration</th>
+          <tr>
+            <th>Company Name</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Duration</th>
+          </tr>
         </thead>
         <tbody>{renderItem(sortedAppointments, index)}</tbody>
       </table>
